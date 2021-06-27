@@ -19,7 +19,7 @@ para instalar dependências do node, use o comando:
 
 `npm install`
 
-## Arqitetura
+## Arquitetura
 
 ## Iniciando o server
 
