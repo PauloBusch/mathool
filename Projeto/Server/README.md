@@ -17,14 +17,19 @@ API nodejs
 
 para instalar dependências do node, use o comando:
 
-`npm install`
+```
+npm install
+```
 
-## Arqitetura
+## Arquitetura
 
 ## Iniciando o server
 
 Para iniciar o server use o comando `node` no arquivo server.js :
 
-`node src/server.js`
+```
+node src/server.js
+```
 
 a API ira iniciar na porta 3000
+
