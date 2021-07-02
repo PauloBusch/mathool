@@ -23,3 +23,7 @@
 - [ ] 10. Criar uma página de contato, no qual será possível enviar uma mensagem (por email) para os desenvolvedores da ferramenta
 - [ ] 11. Escrever um tutorial para instalação e implantação do site
 - [ ] 12. Escrever o relatório técnico
+
+* Paulo 02, 05, 06, 10
+* Frederson 07, 08, 09, 10
+* Tamires 11, 12
