@@ -10,3 +10,4 @@ Os pais ou responsáveis poderão acompanhar o rendimento dos seus filhos/alunos
 
 **Links Úteis**
 * [Sobre](/#/about)
+* [Contato](/#/contact)

@@ -3,6 +3,7 @@
     <a href="/"><img class="image" alt="Vue logo" src="../../assets/logo-horizontal-white.png"/></a>
     <ul class="links">
       <li><router-link to="/">Início</router-link></li>
+      <li><router-link to="/contact">Contato</router-link></li>
       <li><router-link to="/about">Sobre</router-link></li>
     </ul>
   </div>
@@ -50,6 +51,7 @@
 
   .links a:hover {
     opacity: 1;
+    text-decoration: none;
   }
 
   .links a.router-link-exact-active {

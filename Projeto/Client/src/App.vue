@@ -1,18 +1,22 @@
 <template>
   <div>
-    <app-menu></app-menu>
-    <app-content></app-content>
+    <Menu/>
+    <Content/>
   </div>
 </template>
 
-<script>
+<script>  
   import Menu from '@/components/layout/Menu.vue';
   import Content from '@/components/layout/Content.vue';
+    
+  import "primevue/resources/primevue.min.css";
+  import "primeicons/primeicons.css";
+  import "primevue/resources/themes/saga-blue/theme.css";
 
   export default {
     components: {
-      'app-menu': Menu,
-      'app-content': Content
+      Menu,
+      Content
     }
   }
 </script>
@@ -30,14 +34,30 @@
     --font-size-h3: 20px;
   }
 
+  h1 { font-size: var(--font-size-h1); }
+
   body {
     padding: 0;
     margin: 0;
-    font-family: sans-serif;
+    font-family: Roboto, sans-serif;
   }
 
   #app {
     text-align: center;
     color: var(--secondary);
+  }
+
+  h1 { font-size: var(--font-size-h1); }
+
+  h2 { font-size: var(--font-size-h2); }
+
+  h3 { font-size: var(--font-size-h3); }
+
+  .p-field {
+    margin-bottom: 1rem;
+  }
+
+  .p-float-label {
+    margin-bottom: 2rem;
   }
 </style>
