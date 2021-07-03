@@ -73,7 +73,7 @@
   .markdown a {
     opacity: .8;
     transition: .2s;
-    color: var(--primary);
+    color: var(--blue-500);
   }
 
   .markdown a:hover {

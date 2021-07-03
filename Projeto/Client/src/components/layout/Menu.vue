@@ -19,7 +19,7 @@
     height: var(--menu-height);
     padding: 10px var(--horizontal-space);
     box-shadow: 0 0 5px #828282;
-    background-color: var(--primary);
+    background-color: var(--blue-500);
     display: flex;
     align-items: center;
   }

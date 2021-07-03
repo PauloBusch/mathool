@@ -9,9 +9,9 @@
   import Menu from '@/components/layout/Menu.vue';
   import Content from '@/components/layout/Content.vue';
     
-  import "primevue/resources/primevue.min.css";
-  import "primeicons/primeicons.css";
-  import "primevue/resources/themes/saga-blue/theme.css";
+  import 'primevue/resources/themes/saga-blue/theme.css';
+  import 'primevue/resources/primevue.min.css';
+  import 'primeicons/primeicons.css';
 
   export default {
     components: {
@@ -23,9 +23,6 @@
 
 <style>
   :root {
-    --primary: #42b983;
-    --secondary: #2c3e50;
-
     --horizontal-space: 10%;
     --menu-height: 60px;
 
@@ -44,7 +41,6 @@
 
   #app {
     text-align: center;
-    color: var(--secondary);
   }
 
   h1 { font-size: var(--font-size-h1); }
