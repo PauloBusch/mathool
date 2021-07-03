@@ -70,6 +70,16 @@
     align-items: center;
   }
 
+  .markdown a {
+    opacity: .8;
+    transition: .2s;
+    color: var(--secondary);
+  }
+
+  .markdown a:hover {
+    opacity: 1;
+  }
+
   .markdown pre {
     display: flex;
     background-color: #e7f2fd;
