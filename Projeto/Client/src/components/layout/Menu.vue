@@ -1,6 +1,6 @@
 <template>
   <div id="menu">
-    <a href="/"><img class="image" alt="Vue logo" src="../../assets/logo-horizontal.png"/></a>
+    <a href="/"><img class="image" alt="Vue logo" src="../../assets/logo-horizontal-white.png"/></a>
     <ul class="links">
       <li><router-link to="/">Início</router-link></li>
       <li><router-link to="/about">Sobre</router-link></li>
@@ -17,8 +17,8 @@
     width: 100%;
     height: var(--menu-height);
     padding: 10px var(--horizontal-space);
-    box-shadow: 0 0 5px #ddd;
-    background-color: white;
+    box-shadow: 0 0 5px #828282;
+    background-color: var(--primary);
     display: flex;
     align-items: center;
   }
@@ -44,8 +44,8 @@
     transition: .2s;
     padding: 15px;
     text-decoration: none;
-    font-size: var(--font-size-h3);
-    color: var(--secondary);
+    font-size: var(--font-size-h2);
+    color: white;
   }
 
   .links a:hover {
@@ -54,6 +54,5 @@
 
   .links a.router-link-exact-active {
     opacity: 1;
-    color: var(--primary);
   }
 </style>
