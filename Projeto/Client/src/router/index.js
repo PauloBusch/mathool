@@ -1,20 +1,20 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Home from '../views/Home.vue'
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    meta: { file: 'views/Home.md' },
+    component: () => import('@/components/markdown/MarkdownReader.vue')
   },
   {
     path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    meta: { file: 'views/About.md' },
+    component: () => import('@/components/markdown/MarkdownReader.vue')
   },
   {
     path: '/:pathMatch(.*)*',
-    component: () => import('../views/404PageNotFound.vue')
+    meta: { file: 'views/404PageNotFound.md' },
+    component: () => import('@/components/markdown/MarkdownReader.vue')
   }
 ]
 

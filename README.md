@@ -12,7 +12,7 @@
 
 ### Ciclo 1
 - [x] 01. Definir um nome para a ferramenta
-- [ ] 02. Definir um logo para a ferramenta
+- [x] 02. Definir um logo para a ferramenta
 - [x] 03. Criar um repositório na plataforma GitHub
 - [x] 04. Definir as funções de cada membro para o ciclo
 - [ ] 05. Definir um template e padrão visual para o site
