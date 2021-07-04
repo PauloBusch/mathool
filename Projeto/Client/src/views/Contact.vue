@@ -35,8 +35,9 @@
     import Button from 'primevue/button';
     import InputText from 'primevue/inputtext';
     import Textarea from 'primevue/textarea';
-    
     import * as Yup from 'yup';
+
+    import { sendEmailAsync } from '@/services/contact-service'; 
 
     export default { 
         data() {
@@ -67,8 +68,10 @@
             sendMessage() {
                 this.schema
                     .validate(this.values, { abortEarly: false })
-                    .then(() => {
+                    .then(async () => {
                         this.errors = { };
+
+                        sendEmailAsync(this.values);
                     })
                     .catch(err => {
                         err.inner.forEach(error => {
