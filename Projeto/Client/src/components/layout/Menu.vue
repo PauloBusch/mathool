@@ -1,13 +1,12 @@
 <template>
   <div id="menu">
-    <a href="/"><img class="image" alt="Vue logo" src="../../assets/logo-horizontal-white.png"/></a>
+    <a href="/"><img class="image" alt="Vue logo" src="/assets/logo/logo-horizontal-white.png"/></a>
     <ul class="links">
       <li><router-link to="/">Início</router-link></li>
       <li><router-link to="/mathcontent">Conteúdo</router-link></li>
       <li><router-link to="/tools">Ferramentas</router-link></li>
       <li><router-link to="/team">Equipe</router-link></li>
       <li><router-link to="/contact">Contato</router-link></li>
-      <li><router-link to="/about">Sobre</router-link></li>
     </ul>
   </div>
 </template>

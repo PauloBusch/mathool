@@ -7,15 +7,6 @@ const routes = [
     component: () => import('@/components/markdown/MarkdownReader.vue')
   },
   {
-    path: '/contact',
-    component: () => import('@/views/Contact.vue')
-  },
-  {
-    path: '/about',
-    meta: { file: 'views/About.md' },
-    component: () => import('@/components/markdown/MarkdownReader.vue')
-  },
-  {
     path: '/mathcontent',
     meta: { file: 'views/MathContent.md' },
     component: () => import('@/components/markdown/MarkdownReader.vue')
@@ -29,6 +20,10 @@ const routes = [
     path: '/team',
     meta: { file: 'views/Team.md' },
     component: () => import('@/components/markdown/MarkdownReader.vue')
+  },
+  {
+    path: '/contact',
+    component: () => import('@/views/Contact.vue')
   },
   {
     path: '/:pathMatch(.*)*',

@@ -33,5 +33,10 @@
 
 | Dependência | Versão
 |---| ---|
-| Express | 4.17.1 |
-| Sequelize | 6.6.4 |
+| express | 4.17.1 |
+| body-parser | 1.19.0 |
+| cors | 2.8.5 |
+| dotenv | 10.0.0 |
+| nodemailer | 6.6.2 |
+| nodemon | 2.0.9 |
+| pm2 | 5.1.0 |

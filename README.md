@@ -20,7 +20,7 @@
 - [x] 07. Criar uma página com o conteúdo de matemática que será abordado na ferramenta
 - [X] 08. Criar uma página para detalhar as tecnologias e ferramentas que serão estudadas e utilizadas no desenvolvimento do projeto
 - [X] 09. Criar uma página para descrever a equipe de desenvolvimento e o contexto da disciplina
-- [ ] 10. Criar uma página de contato, no qual será possível enviar uma mensagem (por email) para os desenvolvedores da ferramenta
+- [x] 10. Criar uma página de contato, no qual será possível enviar uma mensagem (por email) para os desenvolvedores da ferramenta
 - [ ] 11. Escrever um tutorial para instalação e implantação do site
 - [ ] 12. Escrever o relatório técnico
 

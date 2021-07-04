@@ -1,4 +1,4 @@
-![Mathool](/logo.png "Logo Mathool")
+![Mathool](/assets/logo/logo.png "Logo Mathool")
 
 ## Plataforma de Ensino Aprendizagem de Matemática
 
