@@ -1,6 +1,7 @@
 {
-  "name": "mathool",
-  "version": "0.1.0",
+  "name": "mathool-client",
+  "version": "1.0.0",
+  "description": "Mathool CLIENT",
   "private": true,
   "scripts": {
     "start": "vue-cli-service serve",

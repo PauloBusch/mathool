@@ -1,12 +1,18 @@
+const dotenv = require('dotenv');
+dotenv.config({ path: '.env' });
+
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const express = require('express');
-const bodyParse = require('body-parser');
-const { Router} = require('./router');
+const server = express();
 
-const app = express();
+server.use(cors());
+server.use(bodyParser.urlencoded({ extended: true }));
+server.use(bodyParser.json());
 
-app.use(bodyParse.json());
-app.use(bodyParse.urlencoded({ extend: false}));
-app.use(Router);
+const port = parseInt(process.env.SERVER_PORT);
+server.listen(port, function() {
+  console.log(`SERVER running on port: ${port}`);
+});
 
-
-app.listen(3000);
+module.exports = { server };
