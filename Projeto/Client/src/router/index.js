@@ -16,6 +16,11 @@ const routes = [
     component: () => import('@/components/markdown/MarkdownReader.vue')
   },
   {
+    path: '/mathcontent',
+    meta: { file: 'views/MathContent.md' },
+    component: () => import('@/components/markdown/MarkdownReader.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     meta: { file: 'views/404PageNotFound.md' },
     component: () => import('@/components/markdown/MarkdownReader.vue')

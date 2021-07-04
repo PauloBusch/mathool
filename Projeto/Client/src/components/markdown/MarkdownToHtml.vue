@@ -115,10 +115,10 @@
 
   .markdown blockquote  p::before{
     content: '“';
-    font-size: 300px;
+    font-size: 200px;
     position: absolute;
     color: rgba(92, 87, 156, 0.541);
-    top: -100px;
+    top: -65px;
     left: -40px;
     max-height: 10px !important;
     margin: 0;
