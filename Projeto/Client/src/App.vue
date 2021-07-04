@@ -12,6 +12,7 @@
   import 'primevue/resources/themes/saga-blue/theme.css';
   import 'primevue/resources/primevue.min.css';
   import 'primeicons/primeicons.css';
+  import 'mosha-vue-toastify/dist/style.css';
 
   export default {
     components: {
@@ -52,5 +53,9 @@
   .p-field {
     margin-bottom: 1.5rem;
     text-align: left;
+  }
+
+  .mosha__toast {
+    top: calc(12px + var(--menu-height)) !important;
   }
 </style>

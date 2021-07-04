@@ -35,6 +35,7 @@
     import Button from 'primevue/button';
     import InputText from 'primevue/inputtext';
     import Textarea from 'primevue/textarea';
+    import { createToast } from 'mosha-vue-toastify';
     import * as Yup from 'yup';
 
     import { sendEmailAsync } from '@/services/contact-service'; 
@@ -71,7 +72,12 @@
                     .then(async () => {
                         this.errors = { };
 
-                        sendEmailAsync(this.values);
+                        try {
+                            await sendEmailAsync(this.values);
+                            createToast('Mensagem enviada com sucesso', { type: 'success' });
+                        } catch {
+                            createToast('Falha ao enviar mensagem!', { type: 'danger' });
+                        }
                     })
                     .catch(err => {
                         err.inner.forEach(error => {
