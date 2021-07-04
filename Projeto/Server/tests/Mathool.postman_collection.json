@@ -1,0 +1,42 @@
+{
+	"info": {
+		"_postman_id": "557f1560-2d9c-4aca-9c15-e44e0180855b",
+		"name": "Mathool",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "contact",
+			"item": [
+				{
+					"name": "send-email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Usuário\",\r\n    \"email\": \"paulo202015@outlook.com.br\",\r\n    \"message\": \"Mensagem de teste\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/oapi/contact/send-email",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"oapi",
+								"contact",
+								"send-email"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

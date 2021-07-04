@@ -17,6 +17,9 @@
     components: {
       Menu,
       Content
+    },
+    mounted() {
+      console.log(process.env)
     }
   }
 </script>
