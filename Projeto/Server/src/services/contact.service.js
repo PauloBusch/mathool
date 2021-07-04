@@ -1,4 +1,5 @@
 const { MailDetails, MailSmtp } = require('../utils/models/mail-smtp.model');
+const EmailValidator = require('../utils/validators/email');
 
 async function sendEmail(req, res) {
     const { body } = req;
@@ -24,6 +25,7 @@ function getSendEmailErrors(data) {
     const errors = [];
     if (!data.name) errors.push('Parameter name is required');
     if (!data.email) errors.push('Parameter email is required');
+    if (data.email && !EmailValidator.validate(data.email)) errors.push('Parameter email is invalid');
     if (!data.message) errors.push('Parameter message is required');
     return errors;
 }
