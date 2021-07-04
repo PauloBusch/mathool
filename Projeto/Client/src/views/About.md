@@ -28,10 +28,13 @@ Execute server, testes, lint, dentre outros com a GUI do vue-cli
 | Dependência | Versão
 |---| ---|
 | eslint | 6.8.0 |
-| core | 3.15.2 |
+| core-js | 3.6.5 |
 | vue-router | 4.0.10 |
 | vuex | 4.0.2 |
-| vuetify | 2.5.6 |
+| primevue | 3.5.1 |
+| primeicons | 4.1.0 |
+| marked | 2.1.3 |
+| raw-loader | 4.0.2 |
 
 ## Instalando Dependências
 

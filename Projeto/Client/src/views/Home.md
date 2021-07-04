@@ -9,5 +9,8 @@ Os alunos terão uma experiência dinâmica de aprendizado por meio vários tipo
 Os pais ou responsáveis poderão acompanhar o rendimento dos seus filhos/alunos por meio de um painel que resume os conteúdos aplicados pelos professores.
 
 **Links Úteis**
+* [Conteudo](/#/mathcontent)
+* [Ferramentas](/#/tools)
+* [Equipe](/#/team)
 * [Sobre](/#/about)
 * [Contato](/#/contact)

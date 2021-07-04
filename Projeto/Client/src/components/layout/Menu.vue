@@ -4,6 +4,8 @@
     <ul class="links">
       <li><router-link to="/">Início</router-link></li>
       <li><router-link to="/mathcontent">Conteudo</router-link></li>
+      <li><router-link to="/tools">Ferramentas</router-link></li>
+      <li><router-link to="/team">Equipe</router-link></li>
       <li><router-link to="/contact">Contato</router-link></li>
       <li><router-link to="/about">Sobre</router-link></li>
     </ul>
