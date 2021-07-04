@@ -50,10 +50,7 @@
   h3 { font-size: var(--font-size-h3); }
 
   .p-field {
-    margin-bottom: 1rem;
-  }
-
-  .p-float-label {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
   }
 </style>
