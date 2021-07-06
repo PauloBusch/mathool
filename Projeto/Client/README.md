@@ -45,7 +45,7 @@ npm install
 ## Executando Server
 
 ```
-npm run serve
+npm run start
 ```
 
 ## Build da Aplicação
