@@ -1,16 +1,18 @@
 # Mathool
 
-## Integrantes
 
-| Nome | Papel |
-| ---  | ----- |
-| Paulo Ricardo Busch | Gerente de projeto |
-| Frederson Mandu de Oliveira | Arquiteto |
-| Tamires Cristina Cassiano | Projetista de interface \ Gerente de qualidade |
 
 ## Tarefas
 
-### Ciclo 2
+## Ciclo 2
+
+### Integrantes
+
+| Nome | Papel |
+| ---  | ----- |
+| Paulo Ricardo Busch | Arquiteto |
+| Frederson Mandu de Oliveira | Projetista de interface \ Gerente de qualidade |
+| Tamires Cristina Cassiano | Gerente de projeto |
 
 - [ ] 01 Desenvolver o cadastro do professor
 - [ ] 02 Desenvolver o cadastro do aluno
@@ -23,8 +25,26 @@
 - [ ] 09 Permitir ao professor arquivar suas turmas
 - [ ] 10 Permitir aos alunos se associarem a uma turma
 - [ ] 11 Escrever o relatório técnico
+- [ ] 12 Diagramas 
+- [ ] 13 Tabela de Rotas
+- [ ] 14 Prototipo
+- [ ] 15 Testes
 
-### Ciclo 1
+* Paulo 01, 02, 03, 04, 12, 15
+* Frederson 06, 07, 08, 10, 11, 13
+* Tamires 05, 09, 11, 14
+
+
+## Ciclo 1
+
+### Integrantes
+
+| Nome | Papel |
+| ---  | ----- |
+| Paulo Ricardo Busch | Gerente de projeto |
+| Frederson Mandu de Oliveira | Arquiteto |
+| Tamires Cristina Cassiano | Projetista de interface \ Gerente de qualidade |
+
 - [x] 01. Definir um nome para a ferramenta
 - [x] 02. Definir um logo para a ferramenta
 - [x] 03. Criar um repositório na plataforma GitHub
@@ -35,8 +55,8 @@
 - [X] 08. Criar uma página para detalhar as tecnologias e ferramentas que serão estudadas e utilizadas no desenvolvimento do projeto
 - [X] 09. Criar uma página para descrever a equipe de desenvolvimento e o contexto da disciplina
 - [x] 10. Criar uma página de contato, no qual será possível enviar uma mensagem (por email) para os desenvolvedores da ferramenta
-- [ ] 11. Escrever um tutorial para instalação e implantação do site
-- [ ] 12. Escrever o relatório técnico
+- [x] 11. Escrever um tutorial para instalação e implantação do site
+- [x] 12. Escrever o relatório técnico
 
 * Paulo 02, 05, 06, 10
 * Frederson 07, 08, 09, 10
