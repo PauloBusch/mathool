@@ -10,6 +10,20 @@
 
 ## Tarefas
 
+### Ciclo 2
+
+- [] 01 Desenvolver o cadastro do professor
+- [] 02 Desenvolver o cadastro do aluno
+- [] 03 Permitir aos usuários recuperar uma nova senha
+- [] 04 Realizar o login dos usuários
+- [] 05 Realizar o logout dos usuários
+- [] 06 Criar uma página inicial restrita aos usuários logados
+- [] 07 Permitir o professor cadastrar novas turmas
+- [] 08 Listar as turmas de um professor
+- [] 09 Permitir ao professor arquivar suas turmas
+- [] 10 Permitir aos alunos se associarem a uma turma
+- [] 11 Escrever o relatório técnico
+
 ### Ciclo 1
 - [x] 01. Definir um nome para a ferramenta
 - [x] 02. Definir um logo para a ferramenta
