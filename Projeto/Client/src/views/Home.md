@@ -12,5 +12,4 @@ Os pais ou responsáveis poderão acompanhar o rendimento dos seus filhos/alunos
 * [Conteúdo](/#/mathcontent)
 * [Ferramentas](/#/tools)
 * [Equipe](/#/team)
-* [Sobre](/#/about)
 * [Contato](/#/contact)

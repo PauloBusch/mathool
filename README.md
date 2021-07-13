@@ -25,7 +25,7 @@
 - [ ] 09 Permitir ao professor arquivar suas turmas
 - [ ] 10 Permitir aos alunos se associarem a uma turma
 - [ ] 11 Escrever o relatório técnico
-- [ ] 12 Diagramas 
+- [x] 12 Diagramas 
 - [ ] 13 Tabela de Rotas
 - [ ] 14 Prototipo
 - [ ] 15 Testes
