@@ -1,9 +1,8 @@
-const restful = require('node-restful');
-const { Schema } = restful.mongoose;
+const { Schema } = require('mongoose');
 
-const classSchema = new Schema({
+module.exports = new Schema({
     name: { type: String, required: true, maxLength: 150 },
+    serie: { type: Number, required: true, min: 1, max: 10 },
+    class: { type: String, required: true, length: 1 },
     code: { type: String, required: true, unique: true }
 });
-
-module.exports = restful.model('classes', classSchema);

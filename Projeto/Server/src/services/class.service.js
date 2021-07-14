@@ -1,11 +1,16 @@
-const classModel = require('../schemas/class');
-const { errorMidware } = require('../midwares/error-midware');
+const { Class } = require('../database/models');
 
-classModel.methods(['get', 'post', 'put', 'delete']);
-classModel.updateOptions({ new: true, runValidators: true });
-classModel.after('post', errorMidware);
-classModel.after('put', errorMidware);
+class ClassService {
+    async getByIdAsync(req, res) { }
+    getAllAsync(req, res) { }
+    createAsync(req, res) { }
+    updateAsync(req, res) { }
+    removeAsync(req, res) { }
 
-module.exports = { 
-    classService: classModel
-};
+    getErrors(data) {
+        const errors = [];
+        return errors;
+    }
+}
+
+module.exports = new ClassService();
