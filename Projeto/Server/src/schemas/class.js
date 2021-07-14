@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+const { Types } = Schema;
 
 module.exports = new Schema({
     name: { type: String, required: true, maxLength: 150 },

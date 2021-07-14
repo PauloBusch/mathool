@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 const { User } = require('../database/models');
 const { merge } = require('../utils/helpers/errors');
 const { bindAll } = require('../utils/helpers/context');
@@ -11,14 +13,15 @@ class UserService {
     async createAsync(req, res) { 
         const data = req.body;
         const errors = this.getErrors(data);
-        if (data.email && User.exists({ email: data.email }))
+        if (data.email && await User.exists({ email: data.email }))
             errors.push('User with email already exist');
         if (errors.length) return res.status(400).json({ errors });
 
-        const user = { ...data, password: data.password };
-        await User.create(user);
+        const salt = bcrypt.genSaltSync();
+        const hash = bcrypt.hashSync(data.password, salt); 
+        const { _id } = await User.create({ ...data, password: hash });
 
-        res.status(200).json(user);
+        res.status(200).json({ id: _id, ...data, password: undefined });
     }
     async updateAsync(req, res) { }
     async loginAsync(req, res) { }

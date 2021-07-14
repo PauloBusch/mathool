@@ -1,4 +1,5 @@
 const { Schema } = require('mongoose');
+const { Types } = Schema;
 const roles = require('../utils/enums/roles');
 
 module.exports = new Schema({
