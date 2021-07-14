@@ -1,5 +1,6 @@
 const { MailDetails, MailSmtp } = require('../utils/helpers/mail-smtp.model');
-const EmailValidator = require('../utils/validators/email');
+const { merge } = require('../utils/helpers/errors');
+const emailValidator = require('../utils/validators/email');
 
 class ContactService {
     async sendEmailAsync(req, res) {
@@ -26,7 +27,10 @@ class ContactService {
         const errors = [];
         if (!data.name) errors.push('Parameter name is required');
         if (!data.email) errors.push('Parameter email is required');
-        if (data.email && !EmailValidator.validate(data.email)) errors.push('Parameter email is invalid');
+        if (data.email) {
+            const emailErrors = emailValidator.validate(data.email);
+            merge(errors, emailErrors);
+        }
         if (!data.message) errors.push('Parameter message is required');
         return errors;
     }

@@ -7,4 +7,11 @@ function getConnectionString() {
     return `mongodb://${credentials}${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 }
 
-connect(getConnectionString(), { useNewUrlParser: true, useUnifiedTopology: true });
+connect(
+    getConnectionString(), 
+    { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true,
+        useCreateIndex: true 
+    }
+);
