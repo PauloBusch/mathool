@@ -6,5 +6,5 @@ module.exports = new Schema({
     email: { type: String, required: true, unique: true, maxLength: 100 },
     password: { type: String, required: true },
     type: { type: String, required: true, enum: [roles.Teacher, roles.Student] },
-    classCode: { type: String }
+    classCode: [String]
 });

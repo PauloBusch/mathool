@@ -10,8 +10,23 @@ const passwordValidator = require('../utils/validators/password');
 const emailValidator = require('../utils/validators/email');
 
 class UserService {
-    async getByIdAsync(req, res) { }
-    async getAllAsync(req, res) { }
+    async getAllAsync(req, res) { 
+        const filters = req.params;
+
+        const users = await User.find(filters);
+
+        res.status(200).json({ data: users.map(user => this.mapUserResponse(user)) });
+    }
+
+    async getByIdAsync(req, res) { 
+        const _id = new ObjectId(req.params.id);
+
+        const user = await User.findOne({ _id });
+
+        if (!user) return res.status(400).json('User is not found');
+
+        res.status(200).json({ data: this.mapUserResponse(user) });
+    }
 
     async createAsync(req, res) { 
         const data = req.body;
@@ -24,7 +39,7 @@ class UserService {
             name: data.name,
             email: data.email,
             type: data.type,
-            classCode: data.classCode,
+            classCode: data.classCode ? [data.classCode] : undefined,
             password: hash
         }; 
         const { _id } = await User.create(user);
@@ -50,6 +65,16 @@ class UserService {
 
     async loginAsync(req, res) { }
 
+    mapUserResponse(data) {
+        return {
+            _id: data._id,
+            name: data.name,
+            email: data.email,
+            type: data.type,
+            classCode: data.classCode
+        };
+    }
+
     async getErrorsAsync(data, _id) {
         const errors = [];
         if (_id && !await User.exists({ _id }))
@@ -70,7 +95,7 @@ class UserService {
         if (!_id && !data.type) errors.push('Parameter type is required');
         if (!_id && data.type && [roles.Teacher, roles.Student].indexOf(data.type) === -1) 
             errors.push(`Parameter type require in (${roles.Teacher}, ${roles.Student})`);
-        if (data.classCode && await Class.exists({ code: data.classCode }))
+        if (data.classCode && !await Class.exists({ code: data.classCode }))
             errors.push('Class with code is not found');
         return errors;
     }
