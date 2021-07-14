@@ -8,15 +8,15 @@ function routes(server) {
   const protectedApi = express.Router();
   server.use('/api', protectedApi);
 
-  protectedApi.get('classes', classService.getAllAsync);
-  protectedApi.post('classes', classService.createAsync);
-  protectedApi.get('classes/:id', classService.getByIdAsync);
-  protectedApi.put('classes/:id', classService.updateAsync);
-  protectedApi.delete('classes/:id', classService.removeAsync);
+  protectedApi.get('/classes', classService.getAllAsync);
+  protectedApi.post('/classes', classService.createAsync);
+  protectedApi.get('/classes/:id', classService.getByIdAsync);
+  protectedApi.put('/classes/:id', classService.updateAsync);
+  protectedApi.delete('/classes/:id', classService.removeAsync);
 
-  protectedApi.get('users', userService.getAllAsync);
-  protectedApi.get('users/:id', userService.getByIdAsync);
-  protectedApi.put('users/:id', userService.updateAsync);
+  protectedApi.get('/users', userService.getAllAsync);
+  protectedApi.get('/users/:id', userService.getByIdAsync);
+  protectedApi.put('/users/:id', userService.updateAsync);
 
   const openApi = express.Router();
   server.use('/oapi', openApi);
