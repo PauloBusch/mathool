@@ -1,5 +1,6 @@
 const express = require('express');
 
+const auth = require('./midwares/auth-midware');
 const classService = require('./services/class.service');
 const userService = require('./services/user.service');
 const contactService = require('./services/contact.service');
@@ -7,6 +8,8 @@ const contactService = require('./services/contact.service');
 function routes(server) {
   const protectedApi = express.Router();
   server.use('/api', protectedApi);
+  
+  protectedApi.use(auth);
 
   protectedApi.get('/classes', classService.getAllAsync);
   protectedApi.post('/classes', classService.createAsync);

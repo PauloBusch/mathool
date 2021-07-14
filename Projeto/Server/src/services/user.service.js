@@ -85,16 +85,6 @@ class UserService {
         res.status(200).json({ data: { ...userData, token } });
     }
 
-    mapUserResponse(data) {
-        return {
-            _id: data._id,
-            name: data.name,
-            email: data.email,
-            type: data.type,
-            classCode: data.classCode
-        };
-    }
-
     async getErrorsAsync(data, _id) {
         const errors = [];
         if (_id && !await User.exists({ _id }))
@@ -125,6 +115,16 @@ class UserService {
         if (!data.email) errors.push('Parameter email is required');
         if (!data.password) errors.push('Parameter password is required');
         return errors;
+    }
+
+    mapUserResponse(data) {
+        return {
+            _id: data._id,
+            name: data.name,
+            email: data.email,
+            type: data.type,
+            classCode: data.classCode
+        };
     }
 }
 
