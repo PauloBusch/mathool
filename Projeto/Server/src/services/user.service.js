@@ -1,11 +1,11 @@
-const { Class } = require('../database/models');
+const { User } = require('../database/models');
 
-class ClassService {
+class UserService {
     async getByIdAsync(req, res) { }
     async getAllAsync(req, res) { }
     async createAsync(req, res) { }
     async updateAsync(req, res) { }
-    async removeAsync(req, res) { }
+    async loginAsync(req, res) { }
 
     getErrors(data) {
         const errors = [];
@@ -13,4 +13,4 @@ class ClassService {
     }
 }
 
-module.exports = new ClassService();
+module.exports = new UserService();
