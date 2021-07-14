@@ -1,5 +1,6 @@
 const { User } = require('../database/models');
 const { merge } = require('../utils/helpers/errors');
+const { bindAll } = require('../utils/helpers/context');
 const roles = require('../utils/enums/roles');
 const passwordValidator = require('../utils/validators/password');
 const emailValidator = require('../utils/validators/email');
@@ -8,12 +9,16 @@ class UserService {
     async getByIdAsync(req, res) { }
     async getAllAsync(req, res) { }
     async createAsync(req, res) { 
-        const errors = this.getErrors(req.body);
+        const data = req.body;
+        const errors = this.getErrors(data);
+        if (data.email && User.exists({ email: data.email }))
+            errors.push('User with email already exist');
         if (errors.length) return res.status(400).json({ errors });
 
-        await User.create(req.body);
+        const user = { ...data, password: data.password };
+        await User.create(user);
 
-        res.status(200).json(req.body);
+        res.status(200).json(user);
     }
     async updateAsync(req, res) { }
     async loginAsync(req, res) { }
@@ -40,4 +45,4 @@ class UserService {
     }
 }
 
-module.exports = new UserService();
+module.exports = bindAll(UserService, new UserService());

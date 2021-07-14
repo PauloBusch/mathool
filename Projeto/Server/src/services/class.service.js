@@ -1,4 +1,5 @@
 const { Class } = require('../database/models');
+const { bindAll } = require('../utils/helpers/context');
 
 class ClassService {
     async getByIdAsync(req, res) { }
@@ -13,4 +14,4 @@ class ClassService {
     }
 }
 
-module.exports = new ClassService();
+module.exports = bindAll(ClassService, new ClassService());
