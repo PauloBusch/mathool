@@ -1,7 +1,8 @@
 const express = require('express');
 
-const auth = require('./midwares/auth-midware');
+const authMidware = require('./midwares/auth-midware');
 const classService = require('./services/class.service');
+const authService = require('./services/auth.service');
 const userService = require('./services/user.service');
 const contactService = require('./services/contact.service');
 
@@ -9,7 +10,7 @@ function routes(server) {
   const protectedApi = express.Router();
   server.use('/api', protectedApi);
   
-  protectedApi.use(auth);
+  protectedApi.use(authMidware);
 
   protectedApi.get('/classes', classService.getAllAsync);
   protectedApi.post('/classes', classService.createAsync);
@@ -24,7 +25,7 @@ function routes(server) {
   const openApi = express.Router();
   server.use('/oapi', openApi);
 
-  openApi.post('/login', userService.loginAsync);
+  openApi.post('/login', authService.loginAsync);
   openApi.post('/users', userService.createAsync);
   openApi.post('/contact/send-email', contactService.sendEmailAsync);
 }

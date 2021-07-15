@@ -1,5 +1,7 @@
-const { MailDetails, MailSmtp } = require('../utils/helpers/mail-smtp.model');
+const { bindAll } = require('../utils/helpers/context');
 const { merge } = require('../utils/helpers/errors');
+const { MailDetails } = require('../models/smtp/email-detail');
+const mailService = require('./email.service');
 const emailValidator = require('../utils/validators/email');
 
 class ContactService {
@@ -17,7 +19,7 @@ class ContactService {
             `<strong>Mensagem: </strong> ${body.message}<br />`,
             process.env.SMTP_CONTACT
         );
-        new MailSmtp(detail).Send((err, _) => {
+        mailService.sendAsync(detail, (err, _) => {
           if (err) return res.status(400).json({ errors: ['Fail to send email'] });
           res.json({ });
         });
@@ -36,4 +38,4 @@ class ContactService {
     }
 }
 
-module.exports = new ContactService();
+module.exports = bindAll(ContactService, new ContactService());
