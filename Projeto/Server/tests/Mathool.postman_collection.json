@@ -143,7 +143,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Paulo Ricardo Busch\",\r\n    \"email\": \"paulo20201515@gmail.com\",\r\n    \"type\": \"Professor\",\r\n    \"password\": \"Pass123$\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Paulo Ricardo Busch\",\r\n    \"email\": \"paulo20201515@gmail.com\",\r\n    \"role\": \"Professor\",\r\n    \"password\": \"Pass123$\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
