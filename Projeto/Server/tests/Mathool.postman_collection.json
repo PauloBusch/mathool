@@ -6,16 +6,30 @@
 	},
 	"item": [
 		{
-			"name": "contact",
+			"name": "auth",
 			"item": [
 				{
-					"name": "send-email",
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Set data\", function () {\r",
+									"    let data = pm.response.json().data;\r",
+									"    pm.environment.set('token', data.token)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Usuário\",\r\n    \"email\": \"paulo202015@outlook.com.br\",\r\n    \"message\": \"Mensagem de teste\"\r\n}",
+							"raw": "{\r\n    \"email\": \"paulo20201515@gmail.com\",\r\n    \"password\": \"Pass123$\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -23,14 +37,81 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/oapi/contact/send-email",
+							"raw": "{{baseUrl}}/oapi/login",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"oapi",
-								"contact",
-								"send-email"
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Set data\", function () {\r",
+									"    let data = pm.response.json().data;\r",
+									"    pm.environment.set('forgot-token', data.token)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"paulo20201515@gmail.com\",\r\n    \"baseUrl\": \"http://localhost:8080\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/oapi/forgot-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"oapi",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"{{forgot-token}}\",\r\n    \"newPassword\": \"Pass123$\",\r\n    \"confirmPassword\": \"Pass123$\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/oapi/change-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"oapi",
+								"change-password"
 							]
 						}
 					},
@@ -62,7 +143,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Paulo Ricardo Busch\",\r\n    \"email\": \"paulo202015@outlook.com.br\",\r\n    \"type\": \"Professor\",\r\n    \"password\": \"Pass123$\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Paulo Ricardo Busch\",\r\n    \"email\": \"paulo20201515@gmail.com\",\r\n    \"type\": \"Professor\",\r\n    \"password\": \"Pass123$\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -188,29 +269,20 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "contact",
+			"item": [
 				{
-					"name": "login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Set data\", function () {\r",
-									"    let data = pm.response.json().data;\r",
-									"    pm.environment.set('token', data.token)\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
+					"name": "send-email",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"paulo202015@outlook.com.br\",\r\n    \"password\": \"Pass123$\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Usuário\",\r\n    \"email\": \"paulo20201515@gmail.com\",\r\n    \"message\": \"Mensagem de teste\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -218,13 +290,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/oapi/login",
+							"raw": "{{baseUrl}}/oapi/contact/send-email",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"oapi",
-								"login"
+								"contact",
+								"send-email"
 							]
 						}
 					},

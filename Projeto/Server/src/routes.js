@@ -1,6 +1,8 @@
 const express = require('express');
 
+const roles = require('./utils/enums/roles');
 const authMidware = require('./midwares/auth-midware');
+const roleMidware = require('./midwares/role-midware');
 const classService = require('./services/class.service');
 const authService = require('./services/auth.service');
 const userService = require('./services/user.service');
@@ -18,7 +20,7 @@ function routes(server) {
   protectedApi.put('/classes/:id', classService.updateAsync);
   protectedApi.delete('/classes/:id', classService.removeAsync);
 
-  protectedApi.get('/users', userService.getAllAsync);
+  protectedApi.get('/users', roleMidware([roles.Teacher]), userService.getAllAsync);
   protectedApi.get('/users/:id', userService.getByIdAsync);
   protectedApi.put('/users/:id', userService.updateAsync);
 
@@ -26,6 +28,8 @@ function routes(server) {
   server.use('/oapi', openApi);
 
   openApi.post('/login', authService.loginAsync);
+  openApi.post('/forgot-password', authService.forgotPasswordAsync);
+  openApi.post('/change-password', authService.changePasswordWithTokenAsync);
   openApi.post('/users', userService.createAsync);
   openApi.post('/contact/send-email', contactService.sendEmailAsync);
 }

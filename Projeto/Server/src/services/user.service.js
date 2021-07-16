@@ -10,12 +10,12 @@ const passwordValidator = require('../utils/validators/password');
 const emailValidator = require('../utils/validators/email');
 
 class UserService {
-    async getAllAsync(req, res) { 
+    async getAllAsync(req, res) {
         const filters = req.params;
 
         const users = await User.find(filters);
 
-        res.status(200).json({ data: users.map(user => this.mapUserResponse(user)) });
+        res.json({ data: users.map(user => this.mapUserResponse(user)) });
     }
 
     async getByIdAsync(req, res) { 
@@ -25,7 +25,7 @@ class UserService {
 
         if (!user) return res.status(400).json('User is not found');
 
-        res.status(200).json({ data: this.mapUserResponse(user) });
+        res.json({ data: this.mapUserResponse(user) });
     }
 
     async createAsync(req, res) { 
@@ -44,7 +44,7 @@ class UserService {
         }; 
         const { _id } = await User.create(user);
 
-        res.status(200).json({ data: { _id, ...user, password: undefined } });
+        res.json({ data: { _id, ...user, password: undefined } });
     }
 
     async updateAsync(req, res) { 
@@ -60,7 +60,7 @@ class UserService {
         };
         await User.updateOne({ _id }, user);
 
-        res.status(200).json({ data: user });
+        res.json({ data: user });
     }
 
     async getErrorsAsync(data, _id) {

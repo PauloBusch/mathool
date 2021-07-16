@@ -21,7 +21,7 @@ class ContactService {
         );
         mailService.sendAsync(detail, (err, _) => {
           if (err) return res.status(400).json({ errors: ['Fail to send email'] });
-          res.json({ });
+          res.status(200).json({});
         });
     }
     
