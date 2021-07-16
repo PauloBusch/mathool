@@ -38,7 +38,7 @@ class UserService {
         const user = {
             name: data.name,
             email: data.email,
-            type: data.type,
+            role: data.role,
             classCode: data.classCode ? [data.classCode] : undefined,
             password: hash
         }; 
@@ -80,8 +80,8 @@ class UserService {
             const passwordErrors = passwordValidator.validate(data.password);
             merge(errors, passwordErrors);
         }
-        if (!_id && !data.type) errors.push('Parameter type is required');
-        if (!_id && data.type && [roles.Teacher, roles.Student].indexOf(data.type) === -1) 
+        if (!_id && !data.role) errors.push('Parameter role is required');
+        if (!_id && data.role && [roles.Teacher, roles.Student].indexOf(data.role) === -1) 
             errors.push(`Parameter type require in (${roles.Teacher}, ${roles.Student})`);
         if (data.classCode && !await Class.exists({ code: data.classCode }))
             errors.push('Class with code is not found');
@@ -93,7 +93,7 @@ class UserService {
             _id: data._id,
             name: data.name,
             email: data.email,
-            type: data.type,
+            role: data.role,
             classCode: data.classCode
         };
     }

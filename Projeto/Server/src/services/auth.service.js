@@ -79,7 +79,7 @@ class AuthService {
             _id: data._id,
             name: data.name,
             email: data.email,
-            type: data.type,
+            role: data.role,
             classCode: data.classCode
         };
     }
