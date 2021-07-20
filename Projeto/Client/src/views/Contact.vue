@@ -1,7 +1,7 @@
 <template>
     <div class="contact">
-        <h2>Contato</h2>
         <form class="p-fluid" @submit.prevent="sendMessage">
+            <h2>Contato</h2>
             <div class="p-field">
                 <div class="p-float-label">
                     <InputText id="name" name="name" type="text" v-model="values.name"
@@ -103,17 +103,3 @@
         }
     };
 </script>
-
-<style scoped>
-    form {
-        width: 40vw;
-        display: block;
-        margin: 0 auto;
-    }
-
-    @media only screen and (max-width: 1000px) {
-        form {
-            width: 100%;
-        }
-    }
-</style>

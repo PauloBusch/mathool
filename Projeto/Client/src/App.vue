@@ -58,4 +58,22 @@
   .mosha__toast {
     top: calc(12px + var(--menu-height)) !important;
   }
+
+  .card {    
+    padding: 25px;
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgb(178 178 178);
+  }
+
+  form {
+    width: 40vw;
+    display: block;
+    margin: 0 auto;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    form {
+      width: 100%;
+    }
+  }
 </style>

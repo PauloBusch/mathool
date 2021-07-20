@@ -8,6 +8,7 @@
       <li><router-link to="/team">Equipe</router-link></li>
       <li><router-link to="/contact">Contato</router-link></li>
     </ul>
+    <i class="logout fas fa-user-circle" title="Entrar" @click="$router.push('login')"></i>
   </div>
 </template>
 
@@ -57,6 +58,19 @@
   }
 
   .links a.router-link-exact-active {
+    opacity: 1;
+  }
+
+  .logout {
+    margin-left: auto;
+    cursor: pointer;
+    color: white;
+    font-size: 30px;
+    transition: .2s;
+    opacity: .8;
+  }
+
+  .logout:hover {
     opacity: 1;
   }
 </style>

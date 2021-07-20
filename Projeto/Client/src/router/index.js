@@ -26,6 +26,10 @@ const routes = [
     component: () => import('@/views/Contact.vue')
   },
   {
+    path: '/login',
+    component: () => import('@/views/Login.vue')
+  },
+  {
     path: '/:pathMatch(.*)*',
     meta: { file: 'views/404PageNotFound.md' },
     component: () => import('@/components/markdown/MarkdownReader.vue')
