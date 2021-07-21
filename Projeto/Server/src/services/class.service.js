@@ -58,7 +58,14 @@ class ClassService {
 
 
     async removeAsync(req, res) {
+        try{
+            const id = req.params.id;
+            const classe = await Class.findByIdAndRemove(id);
 
+            res.json(classe);
+        } catch (err){
+            return res.status(400).json({err});
+        }
     }
 
     async getErrorsAsync(data, _id) {
