@@ -25,7 +25,17 @@ class ClassService {
     }
 
     async createAsync(req, res) { 
+        const data = req.body;
 
+        const classe = {
+            name: data.name,
+            serie: data.serie,
+            class: data.class,
+            code: data.code
+        }; 
+        const { _id } = await Class.create(classe);
+
+        res.json({ data: {  ...classe } });
     }
 
 
