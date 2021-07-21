@@ -40,7 +40,20 @@ class ClassService {
 
 
     async updateAsync(req, res) {
+        const _id = new ObjectId(req.params.id);
+        const data = req.body;
+        const errors = await this.getErrorsAsync(data, _id);
+        if (errors.length) return res.status(400).json({ errors });
 
+        const classe = {
+            name: data.name,
+            serie: data.serie,
+            class: data.class,
+            code: data.code
+        };
+        await Class.updateOne({ _id }, classe);
+
+        res.json({ data: classe });
     }
 
 
