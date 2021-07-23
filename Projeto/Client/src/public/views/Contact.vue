@@ -38,7 +38,7 @@
     import { createToast } from 'mosha-vue-toastify';
     import * as Yup from 'yup';
 
-    import { sendEmailAsync } from '@/services/contact-service'; 
+    import { sendEmailAsync } from '@/public/services/contact-service'; 
 
     export default { 
         data() {

@@ -29,8 +29,8 @@
     import { createToast } from 'mosha-vue-toastify';
     import * as Yup from 'yup';
 
-    import { loginAsync } from '@/services/auth-service';
-    import { saveTokenStorage, saveUserStorage } from '@/services/storage-service';
+    import { loginAsync } from '@/shared/services/auth-service';
+    import { saveTokenStorage, saveUserStorage } from '@/shared/services/storage-service';
 
     export default {
         data() {

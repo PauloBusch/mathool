@@ -1,25 +1,14 @@
 <template>
-  <div>
-    <Menu/>
-    <Content/>
-  </div>
+  <router-view></router-view>
 </template>
 
-<script>  
-  import Menu from '@/components/layout/Menu.vue';
-  import Content from '@/components/layout/Content.vue';
-    
+<script>      
   import 'primevue/resources/themes/saga-blue/theme.css';
   import 'primevue/resources/primevue.min.css';
   import 'primeicons/primeicons.css';
   import 'mosha-vue-toastify/dist/style.css';
 
-  export default {
-    components: {
-      Menu,
-      Content
-    }
-  }
+  export default { };
 </script>
 
 <style>

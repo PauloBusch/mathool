@@ -10,7 +10,7 @@
   export default {
     computed: {
       content() {
-        return require(`!raw-loader!../../${this.$route.meta.file}`).default;
+        return require(`!raw-loader!./../../../${this.$route.meta.file}`).default;
       }
     },
     components: {
