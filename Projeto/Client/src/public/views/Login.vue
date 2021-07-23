@@ -26,11 +26,11 @@
 <script>
     import Button from 'primevue/button';
     import InputText from 'primevue/inputtext';
-    import { createToast } from 'mosha-vue-toastify';
     import * as Yup from 'yup';
 
     import { loginAsync } from '@/shared/services/auth-service';
     import { saveTokenStorage, saveUserStorage } from '@/shared/services/storage-service';
+    import { handleErrors } from '@/public/handlers/error-handler';
 
     export default {
         data() {
@@ -69,7 +69,7 @@
                         this.errors = { };
 
                         try {
-                            const { data } = await loginAsync(this.values);
+                            const { data: { data } } = await loginAsync(this.values);
                             saveTokenStorage(data.token);
                             saveUserStorage({
                                 id: data._id,
@@ -78,13 +78,9 @@
                                 role: data.role,
                                 classCode: data.classCode
                             });
-                        } catch (error) {
-                            if (error.response.data && error.response.data.errors)
-                                return error.response.data.errors.forEach(
-                                    error => createToast(error, { type: 'danger' })
-                                );
-
-                            createToast('Falha ao realizar login!', { type: 'danger' });
+                            this.$router.push('/mathool/restrict');
+                        } catch (error) { 
+                            handleErrors(error, 'Falha ao realizar login!'); 
                         }
                     })
                     .catch(err => {
