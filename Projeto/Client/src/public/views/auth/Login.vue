@@ -1,26 +1,28 @@
 <template>
-    <div class="login">
-        <form class="p-fluid card" @submit.prevent="login">
-            <h2>Login</h2>
-            <div class="p-field">
-                <div class="p-float-label">
-                    <InputText id="email" name="email" type="email" v-model="values.email" 
-                        :class="{ 'p-invalid': submitted && errors.email }"/>
-                    <label for="email">E-mail</label>
-                </div>
-                <small class="p-error" v-if="submitted && !!errors.email">{{ errors.email }}</small>
+    <form class="p-fluid card centred" @submit.prevent="login">
+        <h2>Login</h2>
+        <div class="p-field">
+            <div class="p-float-label">
+                <InputText id="email" name="email" type="email" v-model="values.email" 
+                    :class="{ 'p-invalid': submitted && errors.email }"/>
+                <label for="email">E-mail</label>
             </div>
-            <div class="p-field">
-                <div class="p-float-label">
-                    <InputText id="password" name="password" type="password" v-model="values.password"
-                        :class="{ 'p-invalid': submitted && errors.password }"/>
-                    <label for="password">Senha</label>
-                </div>
-                <small class="p-error" v-if="submitted && !!errors.password">{{ errors.password }}</small>
+            <small class="p-error" v-if="submitted && !!errors.email">{{ errors.email }}</small>
+        </div>
+        <div class="p-field">
+            <div class="p-float-label">
+                <InputText id="password" name="password" type="password" v-model="values.password"
+                    :class="{ 'p-invalid': submitted && errors.password }"/>
+                <label for="password">Senha</label>
             </div>
-            <Button type="submit" label="ENTRAR" :disabled="!isValid()"/>
-        </form>
-    </div>
+            <small class="p-error" v-if="submitted && !!errors.password">{{ errors.password }}</small>
+        </div>
+        <div class="links">
+            <router-link to="/forgot-password">Esqueci minha senha</router-link>
+            <router-link to="/create-account">Não tenho uma conta</router-link>
+        </div>
+        <Button type="submit" label="ENTRAR" :disabled="!isValid()"/>
+    </form>
 </template>
 
 <script>
@@ -108,10 +110,14 @@
 </script>
 
 <style scoped>
-  form {
-    background-color: white;
-    max-width: 350px;
-    margin-top: 30vh;
-    transform: translateY(-50%);
-  }
+    form {
+        background-color: white;
+        max-width: 400px;
+    }
+
+    .links {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
 </style>

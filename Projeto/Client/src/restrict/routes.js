@@ -1,11 +1,12 @@
 import Restrict from './views/Restrict.vue';
-import { teacherCanAccess } from '@/middleware/guard';
+import { Role } from '@/shared/consts/role';
+import { guardMiddleware } from '@/middleware/guard-middleware';
 
 const restrictRoutes = [
   {
     path: 'restrict',
     component: Restrict,
-    beforeEnter: teacherCanAccess
+    beforeEnter: guardMiddleware([Role.Teacher, Role.Student])
   }
 ];
 

@@ -40,7 +40,7 @@
   h3 { font-size: var(--font-size-h3); }
 
   .p-field {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
     text-align: left;
   }
 
@@ -62,7 +62,7 @@
 
   @media only screen and (max-width: 1000px) {
     form {
-      width: 100%;
+      width: 80%;
     }
   }
 </style>
