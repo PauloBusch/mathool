@@ -16,7 +16,14 @@ export async function createAsync(data) {
 }
 
 export async function getAllAsync() {
-    return await axios.get(API_BASE_URL);
+
+    return await axios.get(
+        API_BASE_URL,
+        {
+            headers: {
+                Authorization: 'Bearer ' + getTokenStorage()
+            }
+        })
 }
 
 export async function getByIdAsync(id) {
