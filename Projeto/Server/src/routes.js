@@ -15,10 +15,10 @@ function routes(server) {
   protectedApi.use(authMidware);
 
   protectedApi.get('/classes', classService.getAllAsync);
-  protectedApi.post('/classes', classService.createAsync);
-  protectedApi.get('/classes/:id', classService.getByIdAsync);
-  protectedApi.put('/classes/:id', classService.updateAsync);
-  protectedApi.delete('/classes/:id', classService.removeAsync);
+  protectedApi.post('/classes', roleMidware([roles.Teacher]), classService.createAsync);
+  protectedApi.get('/classes/:id', roleMidware([roles.Teacher]), classService.getByIdAsync);
+  protectedApi.put('/classes/:id', roleMidware([roles.Teacher]), classService.updateAsync);
+  protectedApi.delete('/classes/:id', roleMidware([roles.Teacher]), classService.removeAsync);
 
   protectedApi.get('/users', roleMidware([roles.Teacher]), userService.getAllAsync);
   protectedApi.get('/users/:id', userService.getByIdAsync);
