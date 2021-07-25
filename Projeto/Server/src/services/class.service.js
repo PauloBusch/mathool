@@ -13,7 +13,7 @@ class ClassService {
 
         if (!classe) return res.status(400).json('Classe is not found');
 
-        res.json({ data: this.mapUserResponse(classe) });
+        res.json({ data: this.mapClassResponse(classe) });
      }
 
     async getAllAsync(req, res) {
@@ -21,7 +21,7 @@ class ClassService {
 
         const classes = await Class.find(filters);
 
-        res.json({ data: classes.map(classe => this.mapUserResponse(classe)) });
+        res.json({ data: classes.map(classe => this.mapClassResponse(classe)) });
     }
 
     async createAsync(req, res) { 
@@ -31,11 +31,12 @@ class ClassService {
             name: data.name,
             serie: data.serie,
             class: data.class,
-            code: data.code
+            code: data.code,
+            professor_id: data.professor_id
         }; 
         const { _id } = await Class.create(classe);
 
-        res.json({ data: {  ...classe } });
+        res.json({ data: { _id,  ...classe } });
     }
 
 
@@ -49,7 +50,8 @@ class ClassService {
             name: data.name,
             serie: data.serie,
             class: data.class,
-            code: data.code
+            code: data.code,
+            professor_id: data.professor_id
         };
         await Class.updateOne({ _id }, classe);
 
@@ -80,13 +82,14 @@ class ClassService {
         return errors;
     }
 
-    mapUserResponse(data) {
+    mapClassResponse(data) {
         return {
             _id: data._id,
             name: data.name,
             serie: data.serie,
             class: data.class,
-            code: data.code
+            code: data.code,
+            professor_id: data.professor_id
         };
     }
 }
