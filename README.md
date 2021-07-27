@@ -14,10 +14,10 @@
 | Frederson Mandu de Oliveira | Projetista de interface \ Gerente de qualidade |
 | Tamires Cristina Cassiano | Gerente de projeto |
 
-- [ ] 01 Desenvolver o cadastro do professor
-- [ ] 02 Desenvolver o cadastro do aluno
+- [x] 01 Desenvolver o cadastro do professor
+- [x] 02 Desenvolver o cadastro do aluno
 - [ ] 03 Permitir aos usuários recuperar uma nova senha
-- [ ] 04 Realizar o login dos usuários
+- [x] 04 Realizar o login dos usuários
 - [ ] 05 Realizar o logout dos usuários
 - [ ] 06 Criar uma página inicial restrita aos usuários logados
 - [ ] 07 Permitir o professor cadastrar novas turmas
@@ -28,7 +28,7 @@
 - [x] 12 Diagramas 
 - [ ] 13 Tabela de Rotas
 - [ ] 14 Prototipo
-- [ ] 15 Testes
+- [x] 15 Testes
 
 * Paulo 01, 02, 03, 04, 12, 15
 * Frederson 06, 07, 08, 10, 11, 13
