@@ -16,7 +16,7 @@
 
 - [x] 01 Desenvolver o cadastro do professor
 - [x] 02 Desenvolver o cadastro do aluno
-- [ ] 03 Permitir aos usuários recuperar uma nova senha
+- [x] 03 Permitir aos usuários recuperar uma nova senha
 - [x] 04 Realizar o login dos usuários
 - [ ] 05 Realizar o logout dos usuários
 - [ ] 06 Criar uma página inicial restrita aos usuários logados
