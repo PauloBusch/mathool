@@ -2,6 +2,7 @@ import MarkdownReader from '@/shared/components/markdown/MarkdownReader.vue';
 import Contact from './views/Contact.vue';
 import Login from './views/auth/Login.vue';
 import CreateAccount from './views/auth/CreateAccount.vue';
+import ForgotPassword from './views/auth/ForgotPassword.vue';
 
 const publicRoutes = [
   {
@@ -35,6 +36,10 @@ const publicRoutes = [
   {
     path: 'create-account',
     component: CreateAccount
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPassword
   },
   {
     path: '/:pathMatch(.*)*',
