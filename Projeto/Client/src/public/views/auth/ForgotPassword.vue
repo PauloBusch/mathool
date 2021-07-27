@@ -16,9 +16,9 @@
 <script>
     import Button from 'primevue/button';
     import InputText from 'primevue/inputtext';
+    import { createToast } from 'mosha-vue-toastify';
     import * as Yup from 'yup';
 
-    import { createToast } from 'mosha-vue-toastify';
     import { handleErrors } from '@/public/handlers/error-handler';
     import { forgotPasswordAsync } from '@/shared/services/auth-service';
 
