@@ -29,19 +29,19 @@ export async function getAllAsync() {
 
 export async function getByIdAsync(id) {
     return await axios.get(
-        API_BASE_URL, 
-        id,
+        API_BASE_URL + '/'+ id, 
         {
             headers: {
                 Authorization: 'Bearer ' + getTokenStorage()
             }
-        }
+        },
+        id
     );
 }
 
 export async function updateAsync(data) {
     return await axios.put(
-        API_BASE_URL, 
+        API_BASE_URL + '/'+ data.id, 
         data,
         {
             headers: {

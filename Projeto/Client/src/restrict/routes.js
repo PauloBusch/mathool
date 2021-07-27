@@ -1,5 +1,5 @@
 import Restrict from './views/Restrict.vue';
-import CreateClass from './views/class/CreateClass.vue';
+import ClassForm from './views/class/ClassForm.vue';
 import ListClass from './views/class/ListClass.vue';
 import { Role } from '@/shared/consts/role';
 import { guardMiddleware } from '@/middleware/guard-middleware';
@@ -11,8 +11,13 @@ const restrictRoutes = [
     beforeEnter: guardMiddleware([Role.Teacher, Role.Student])
   },
   {
-    path: 'create-class',
-    component: CreateClass,
+    path: 'class-form',
+    component: ClassForm,
+    beforeEnter: guardMiddleware([Role.Teacher])
+  },
+  {
+    path: 'class-form/:id',
+    component: ClassForm,
     beforeEnter: guardMiddleware([Role.Teacher])
   },
   {

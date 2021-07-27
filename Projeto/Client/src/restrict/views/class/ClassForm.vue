@@ -1,6 +1,6 @@
 <template>
-    <form class="centred p-fluid card" @submit.prevent="create">
-        <h2>Cadastrar Classe</h2>
+    <form class="centred p-fluid card" @submit.prevent="save">
+        <h2>{{isNew ? 'Cadastrar ': 'Alterar '}}Classe</h2>
         <div class="p-field">
             <div class="p-float-label">
                 <InputText id="name" name="name" type="text" v-model="values.name"
@@ -33,7 +33,8 @@
             </div>
             <small class="p-error" v-if="submitted && !!errors.code">{{ errors.code }}</small>
         </div>
-        <Button type="submit" label="CADASTRAR"/>
+        <Button v-if="isNew" type="submit" label="CADASTRAR" />
+        <Button v-if="!isNew" type="submit" label="ALTERAR" />
     </form>
 </template>
 
@@ -44,7 +45,7 @@
     import { createToast } from 'mosha-vue-toastify';
 
     import { handleErrors } from '@/public/handlers/error-handler';
-    import { createAsync } from '@/restrict/services/class-service';
+    import { createAsync, getByIdAsync, updateAsync } from '@/restrict/services/class-service';
 
     export default {
         
@@ -53,12 +54,15 @@
                 name: '',
                 serie: '',
                 class: '',
-                code: ''
+                code: '',
+                id: ''
+
             };
             return { 
                 values: { ...fields },
                 errors: { ...fields },
-                submitted: false
+                submitted: false,
+                isNew: true
             };
         },        
         setup() {
@@ -75,6 +79,21 @@
 
             return { schema };
         },
+        mounted(){
+            this.values.id = this.$route.params.id;
+            if(this.values.id){
+                this.isNew = false;
+                getByIdAsync(this.values.id).then((res) => {
+                    this.values.name = res.data.data.name;
+                    this.values.serie = res.data.data.serie;
+                    this.values.class = res.data.data.class;
+                    this.values.code = res.data.data.code;
+                });
+            }
+
+
+
+        },
         watch: {
             'values.name'(){ this.validate('name'); },
             'values.serie'(){ this.validate('serie'); },
@@ -82,8 +101,10 @@
             'values.classCode'(){ this.validate('class'); },
         },
         methods: {
+            save(){ 
+                this.isNew ? this.create() : this.update(); 
+            },
             create() {
-                
                 this.submitted = true;
                 this.schema
                     .validate(this.values, { abortEarly: false })
@@ -103,6 +124,28 @@
                         });
                     });
             },
+            update() {
+                this.submitted = true;
+                this.schema
+                    .validate(this.values, { abortEarly: false })
+                    .then(async () => {
+                        this.errors = { };
+                        try {
+                            await updateAsync(this.values).then((res) => {
+                                console.log(res.data.data);
+                            });
+                            createToast("Alterado", { type: 'success' })
+                            setTimeout(() => this.$router.push('/'), 1500);
+                        }catch (error){
+                            handleErrors(error, 'Falha ao alterar Classe!'); 
+                        }
+                    })
+                    .catch(err => {
+                        err.inner.forEach(error => {
+                            this.errors[error.path] = error.message;
+                        });
+                    });
+            },
             validate(field) {
                 
                 this.schema
@@ -114,6 +157,7 @@
                         this.errors[field] = err.message;
                     });
             },
+
         },
         components: { 
             Button,
