@@ -17,9 +17,8 @@ class ClassService {
      }
 
     async getAllAsync(req, res) {
-        const filters = req.params;
-
-        const classes = await Class.find(filters);
+        const professor_id = req.user._id;
+        const classes = await Class.find({ professor_id });
 
         res.json({ data: classes.map(classe => this.mapClassResponse(classe)) });
     }
@@ -32,7 +31,7 @@ class ClassService {
             serie: data.serie,
             class: data.class,
             code: data.code,
-            professor_id: data.professor_id
+            professor_id: req.user._id
         }; 
         const { _id } = await Class.create(classe);
 
@@ -50,8 +49,7 @@ class ClassService {
             name: data.name,
             serie: data.serie,
             class: data.class,
-            code: data.code,
-            professor_id: data.professor_id
+            code: data.code
         };
         await Class.updateOne({ _id }, classe);
 

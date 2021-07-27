@@ -45,18 +45,15 @@
 
     import { handleErrors } from '@/public/handlers/error-handler';
     import { createAsync } from '@/restrict/services/class-service';
-    import { getUserStorage } from  '@/shared/services/storage-service';
 
     export default {
         
         data() {
-            const USER = getUserStorage();
             const fields = {
                 name: '',
                 serie: '',
                 class: '',
-                code: '',
-                professor_id: USER.id
+                code: ''
             };
             return { 
                 values: { ...fields },
