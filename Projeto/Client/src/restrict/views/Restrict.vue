@@ -1,10 +1,19 @@
 <template>
     <div>
-        This is restrict page
-        <p>
-            <router-link to="/">Início</router-link><br/>
-            <router-link to="/mathool/list-class">Lista de Classes</router-link><br/>
-            <router-link to="/mathool/class-form">Cadastrar Classes</router-link>
-        </p>
+        <h1>Bem vindo {{user.role}}</h1>
+        <h3>This is restrict page</h3>
+
     </div>
 </template>
+
+<script>
+    import { getUserStorage } from '@/shared/services/storage-service';
+export default {
+    data(){
+        const user = getUserStorage();
+        return{
+            user
+        }
+    }
+}
+</script>

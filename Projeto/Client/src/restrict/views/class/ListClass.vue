@@ -142,7 +142,6 @@
         }catch (error){
             handleErrors(error, 'Falha ao Arquivar Classe!'); 
         }
-        // indexAsync(this.classe)
       }
 
 
