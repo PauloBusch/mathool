@@ -66,7 +66,7 @@
     }
   }
 
-  #modal {
+  .modal {
     display: flex;
     flex-wrap: wrap;
     min-width: 300px;
@@ -79,21 +79,21 @@
     border-radius: 4px;
     box-shadow: 5px 8px 20px rgba(0, 0, 0, 0.349);
   }
-  #modal .header, #modal .body, #modal .footer {
+  .modal .header, .modal .body, .modal .footer {
     width: 100%;
     line-height: 1.2em;
     padding: 15px;
     margin: 0;
     min-height: 50px;
   }
-  #modal .header{
+  .modal .header{
     border-radius:4px 4px  0px 0px;
     border-bottom: 1px solid rgb(228, 228, 228);
     color: rgb(73, 75, 97);
     max-height: 50px;
     font-size: var(--font-size-h2);
   }
-  #modal .footer{
+  .modal .footer{
     border-radius:0px 0px  4px 4px;
     border-top: 1px solid rgb(228, 228, 228);
     color: rgb(73, 75, 97);
@@ -101,7 +101,7 @@
     height: auto;
     align-self: flex-end;
   }
-  #modal .dispose {
+  .modal .dispose {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -109,10 +109,10 @@
     font-size: 20px;
   }
   .cursor-pointer{ cursor: pointer;}
-  #modal .dispose:hover {
+  .modal .dispose:hover {
     color:rgba(93, 136, 189, 0.555);
   }
-  #modal Button {
+  .modal Button {
     margin: 0 15px;
   }
   .cursor-pointer{ cursor: pointer;}

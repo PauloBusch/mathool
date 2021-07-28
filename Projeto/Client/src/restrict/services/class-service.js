@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getTokenStorage } from '@/shared/services/storage-service';
 
 const API_BASE_URL = `${process.env.VUE_APP_SERVER_HOST}/api/classes`;
+const API_ARCHIVE_CLASS_URL = `${process.env.VUE_APP_SERVER_HOST}/api/active-class`;
 
 
 export async function createAsync(data) {
@@ -54,6 +55,18 @@ export async function updateAsync(data) {
 export async function deleteAsync(id) {
     return await axios.delete(
         `${API_BASE_URL}:${id}`,
+        {
+            headers: {
+                Authorization: 'Bearer ' + getTokenStorage()
+            }
+        }
+    );
+}
+
+export async function indexAsync(data) {
+    return await axios.put(
+        API_ARCHIVE_CLASS_URL + '/'+ data._id, 
+        data,
         {
             headers: {
                 Authorization: 'Bearer ' + getTokenStorage()

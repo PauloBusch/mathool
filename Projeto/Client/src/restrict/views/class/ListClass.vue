@@ -8,6 +8,7 @@
           <td>serie</td>
           <td>classe</td>
           <td></td>
+          <td v-if="(Role.Teacher == User.role)"></td>
         </tr>
       </thead>
       <tbody>
@@ -18,13 +19,21 @@
           <td>{{cla.class}}</td>
           <td v-if="(Role.Teacher == User.role)" class="invite"><router-link :to="'/mathool/class-form/' + cla._id"><i class="far fa-edit" title="editar"> Editar</i></router-link></td>
           <td v-if="(Role.Student == User.role)" class="invite">
-            <i v-on:click="modalActive = true; classe = cla" class="cursor-pointer fa fa-sign-in-alt" title="se inscrever na sala">{{registered(cla.code) ? ' Sair':' Inscrever-se'}}</i>
+            <i v-on:click="modalEditActive = true; classe = cla" class="cursor-pointer fa fa-sign-in-alt" title="se inscrever na sala">
+              {{ registered(cla.code) ? ' Sair':' Inscrever-se' }}
+            </i>
+          </td>
+          <td v-if="(Role.Teacher == User.role)" class="invite">
+            <i v-on:click="modalArchiveActive = true; classe = cla" class="cursor-pointer fas fa-archive" v-bind:class="{ arquivado: !cla.active_class }" title="Arquivar Sala"> 
+              {{ cla.active_class ?' Arquivar Sala' : ' Desarquivar Sala' }}
+            </i>
           </td>
         </tr>
       </tbody>
     </table>
-    <div v-if="modalActive" id="modal">
-        <span v-on:click="modalActive = false" class="dispose cursor-pointer">x</span>
+
+    <div v-if="modalEditActive" class="modal">
+        <span v-on:click="modalEditActive = false" class="dispose cursor-pointer">x</span>
         <h4 class="header">{{classe.code}}</h4>
         <p class="body">
           Gostaria de {{ registered(classe.code) ? 'sair da ': 'se inscrever na '}}sala: <strong>{{classe.name}}</strong>
@@ -33,8 +42,23 @@
           <strong>{{classe.serie}}</strong> Serie, Turma <strong>{{classe.class}}</strong>
         </p>
         <div class="footer">
-          <Button @click="modalActive = false; registered(classe.code) ? removeClass(classe.code) : addClass(classe.code) " label="SALVAR" />
-          <Button class="p-button-secondary" @click="modalActive = false" label="CANCELAR" />
+          <Button @click="modalEditActive = false; registered(classe.code) ? removeClass(classe.code) : addClass(classe.code) " label="OK" />
+          <Button class="p-button-secondary" @click="modalEditActive = false" label="CANCELAR" />
+        </div>
+    </div>
+
+    <div v-if="modalArchiveActive" class="modal">
+        <span v-on:click="modalArchiveActive = false" class="dispose cursor-pointer">x</span>
+        <h4 class="header">{{classe.code}}</h4>
+        <p class="body">
+          Gostaria de {{ classe.active_class ? 'Arquivar a ': 'desarquivar a '}}sala: <strong>{{classe.name}}</strong>
+        </p>
+        <p class="body">
+          <strong>{{classe.serie}}</strong> Serie, Turma <strong>{{classe.class}}</strong>
+        </p>
+        <div class="footer">
+          <Button @click="modalArchiveActive = false; classe.active_class ? desactiveClass() : activeClass() " label="OK" />
+          <Button class="p-button-secondary" @click="modalArchiveActive = false" label="CANCELAR" />
         </div>
     </div>
   </div>
@@ -47,7 +71,7 @@
 
   import { handleErrors } from '@/public/handlers/error-handler';
 
-  import { getAllAsync } from '@/restrict/services/class-service';
+  import { getAllAsync, indexAsync } from '@/restrict/services/class-service';
   import { getAsync, updateAsync } from '@/restrict/services/student-service';
   import { Role } from '@/shared/consts/role';
   import { getUserStorage } from '@/shared/services/storage-service';
@@ -59,7 +83,8 @@
         classes:undefined,
         Role: Role ,
         User,
-        modalActive: false,
+        modalEditActive: false,
+        modalArchiveActive: false,
         classe: [],
         myClass: { _id: '', classCode: [] }
 
@@ -97,6 +122,27 @@
         }catch (error){
             handleErrors(error, 'Falha ao alterar Classe!'); 
         }
+      },
+      activeClass(){
+        this.classe.active_class = true;
+        try {
+            indexAsync(this.classe).then(() => {
+              createToast("Sala Desarquivada", { type: 'success' })
+            });
+        }catch (error){
+            handleErrors(error, 'Falha ao Desarquivar Classe!'); 
+        }
+      },
+      desactiveClass(){
+        this.classe.active_class = false;
+        try {
+            indexAsync(this.classe).then(() => {
+              createToast("Sala Arquivada", { type: 'success' })
+            });
+        }catch (error){
+            handleErrors(error, 'Falha ao Arquivar Classe!'); 
+        }
+        // indexAsync(this.classe)
       }
 
 
@@ -164,4 +210,8 @@
 
   .invite, .invite a{ color: var(--blue-500) }
   .invite:hover, .invite a:hover{ color: var(--blue-200) }
+
+  .arquivado {
+    color: rgb(226, 90, 90) !important
+  }
 </style>

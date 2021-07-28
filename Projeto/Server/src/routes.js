@@ -21,12 +21,14 @@ function routes(server) {
   protectedApi.put('/classes/:id', roleMidware([roles.Teacher]), classService.updateAsync);
   protectedApi.delete('/classes/:id', roleMidware([roles.Teacher]), classService.removeAsync);
 
+  protectedApi.put('/active-class/:id', roleMidware([roles.Teacher]), classService.indexAsync);
+  
+  protectedApi.put('/student-class/', studentService.updateStudentClassAsync);
+  protectedApi.get('/student-class/', studentService.getAsync);
+  
   protectedApi.get('/users', roleMidware([roles.Teacher]), userService.getAllAsync);
   protectedApi.get('/users/:id', userService.getByIdAsync);
   protectedApi.put('/users/:id', userService.updateAsync);
-
-  protectedApi.put('/student-class/', studentService.updateStudentClassAsync);
-  protectedApi.get('/student-class/', studentService.getAsync);
 
   const openApi = express.Router();
   server.use('/oapi', openApi);

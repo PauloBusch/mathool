@@ -55,7 +55,7 @@ class ClassService {
             serie: data.serie,
             class: data.class,
             code: data.code,
-            active_class: data.active_class
+            active_class: req.user.active_class
         };
         await Class.updateOne({ _id }, classe);
 
@@ -64,9 +64,10 @@ class ClassService {
 
     async indexAsync(req, res) {
         const _id = new ObjectId(req.params.id);
+        const data = req.body;
 
         const classe = {
-            active_class: false
+            active_class: data.active_class
         };
         await Class.updateOne({ _id }, classe);
 
