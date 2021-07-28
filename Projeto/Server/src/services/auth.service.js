@@ -35,9 +35,8 @@ class AuthService {
         const errors = this.getForgotPasswordErrors(data);
         if (errors.length) return res.status(400).json({ errors });
         
-        const defaultError = 'Fail to send recovery email';
         const user = await User.findOne({ email: data.email });
-        if (!user) return res.status(400).json({ errors: [defaultError] });
+        if (!user) return res.status(400).json({ errors: ['User with email does not exist'] });
 
         const token = jwt.sign(
             { user: { email: data.email } }, 
@@ -50,7 +49,7 @@ class AuthService {
             data.email
         );
         mailService.sendAsync(detail, (err, _) => {
-            if (err) return res.status(400).json({ errors: [defaultError] });
+            if (err) return res.status(400).json({ errors: ['Fail to send recovery email'] });
             res.status(200).json({ data: { token } });
         });
     }

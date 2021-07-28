@@ -80,6 +80,10 @@ class UserService {
             const passwordErrors = passwordValidator.validate(data.password);
             merge(errors, passwordErrors);
         }
+        if (!_id && !data.confirmPassword) 
+            errors.push('Parameter confirmPassword is required');
+        if (!_id && data.password !== data.confirmPassword) 
+            errors.push('Parameter confirmPassword is not equal to password');
         if (!_id && !data.role) errors.push('Parameter role is required');
         if (!_id && data.role && [roles.Teacher, roles.Student].indexOf(data.role) === -1) 
             errors.push(`Parameter type require in (${roles.Teacher}, ${roles.Student})`);

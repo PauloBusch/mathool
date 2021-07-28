@@ -9,5 +9,8 @@ export function handleErrors(error, generic, locale) {
     )
         return createToast(generic, { type: 'danger' });
 
-    error.response.data.errors.forEach(error => createToast(locale[error] || error, { type: 'danger' }));
+    const errorsTranslated = error.response.data.errors.filter(error => !!locale[error]);
+    if (errorsTranslated.length === 0) return createToast(generic, { type: 'danger' });
+
+    errorsTranslated.forEach(error => createToast(locale[error] || generic, { type: 'danger' }));
 }
