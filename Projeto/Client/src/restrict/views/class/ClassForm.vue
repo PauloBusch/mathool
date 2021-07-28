@@ -25,9 +25,9 @@
             </div>
             <small class="p-error" v-if="submitted && !!errors.class">{{ errors.class }}</small>
         </div>
-        <div class="p-field">
+        <div v-if="isNew" class="p-field">
             <div class="p-float-label">
-                <InputText id="code" name="code" type="text" v-model="values.code"
+                <InputText id="code" name="code"  type="text" v-model="values.code"
                     :class="{ 'p-invalid': submitted && errors.code }"/>
                 <label for="code">Código de Turma</label>
             </div>

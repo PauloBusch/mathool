@@ -6,6 +6,7 @@ const roleMidware = require('./midwares/role-midware');
 const classService = require('./services/class.service');
 const authService = require('./services/auth.service');
 const userService = require('./services/user.service');
+const studentService = require('./services/student.service');
 const contactService = require('./services/contact.service');
 
 function routes(server) {
@@ -23,6 +24,9 @@ function routes(server) {
   protectedApi.get('/users', roleMidware([roles.Teacher]), userService.getAllAsync);
   protectedApi.get('/users/:id', userService.getByIdAsync);
   protectedApi.put('/users/:id', userService.updateAsync);
+
+  protectedApi.put('/student-class/', studentService.updateStudentClassAsync);
+  protectedApi.get('/student-class/', studentService.getAsync);
 
   const openApi = express.Router();
   server.use('/oapi', openApi);

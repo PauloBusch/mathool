@@ -23,7 +23,7 @@ const restrictRoutes = [
   {
     path: 'list-class',
     component: ListClass,
-    beforeEnter: guardMiddleware([Role.Teacher])
+    beforeEnter: guardMiddleware([Role.Teacher, Role.Student])
   }
 
 ];

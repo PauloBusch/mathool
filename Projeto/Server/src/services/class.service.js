@@ -2,6 +2,7 @@ const { Types } = require('mongoose');
 const { ObjectId } = Types;
 
 const { Class } = require('../database/models');
+const role = require('../utils/enums/roles');
 const { bindAll } = require('../utils/helpers/context');
 
 class ClassService {
@@ -18,9 +19,12 @@ class ClassService {
 
     async getAllAsync(req, res) {
         const professor_id = req.user._id;
-        const classes = await Class.find({ professor_id });
-
+        const filters = req.params;
+        const classes = (role.Teacher == req.user.role) ? 
+            await Class.find( { professor_id } ) : 
+            await Class.find( filters );
         res.json({ data: classes.map(classe => this.mapClassResponse(classe)) });
+
     }
 
     async createAsync(req, res) { 
