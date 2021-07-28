@@ -19,11 +19,11 @@
 - [x] 03 Permitir aos usuários recuperar uma nova senha
 - [x] 04 Realizar o login dos usuários
 - [ ] 05 Realizar o logout dos usuários
-- [ ] 06 Criar uma página inicial restrita aos usuários logados
-- [ ] 07 Permitir o professor cadastrar novas turmas
-- [ ] 08 Listar as turmas de um professor
-- [ ] 09 Permitir ao professor arquivar suas turmas
-- [ ] 10 Permitir aos alunos se associarem a uma turma
+- [x] 06 Criar uma página inicial restrita aos usuários logados
+- [x] 07 Permitir o professor cadastrar novas turmas
+- [x] 08 Listar as turmas de um professor
+- [x] 09 Permitir ao professor arquivar suas turmas
+- [x] 10 Permitir aos alunos se associarem a uma turma
 - [ ] 11 Escrever o relatório técnico
 - [x] 12 Diagramas 
 - [ ] 13 Tabela de Rotas
