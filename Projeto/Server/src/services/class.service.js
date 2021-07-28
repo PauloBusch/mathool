@@ -19,10 +19,11 @@ class ClassService {
 
     async getAllAsync(req, res) {
         const professor_id = req.user._id;
-        const filters = req.params;
+        const active_class = true;
+
         const classes = (role.Teacher == req.user.role) ? 
             await Class.find( { professor_id } ) : 
-            await Class.find( filters );
+            await Class.find( { active_class } );
         res.json({ data: classes.map(classe => this.mapClassResponse(classe)) });
 
     }
