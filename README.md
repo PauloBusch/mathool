@@ -4,6 +4,43 @@
 
 ## Tarefas
 
+## Ciclo 3
+
+### Integrantes
+
+| Nome | Papel |
+| ---  | ----- |
+| Paulo Ricardo Busch | Projetista de interface \ Gerente de qualidade |
+| Frederson Mandu de Oliveira | Gerente de projeto |
+| Tamires Cristina Cassiano |  Arquiteto |
+
+**Em resumo, os seguintes recursos deverão estar disponíveis para o aluno:**
+- [ ] 01 Visualizar uma questão
+- [ ] 02 Responder a questão e obter um retorno (acertou ou errou, o que inclui
+visualizar a resposta correta quando o mesmo errar)
+- [ ] 03 Responder a uma nova questão (com valores diferente)
+- [ ] 04 Visualizar um relatório de sua performance (informativo de quantas questões
+foram respondidas, acertos e erros)
+
+**Além disso, os seguintes recursos deverão estar disponíveis para o professor:**
+- [ ] 05 Gerar um relatório geral do progresso da turma
+- [ ] 06 Gerar um relatório especificando o desempenho de um aluno (mesmo relatório
+de performance apresentado ao aluno, todavia o professor poderá selecionar o
+aluno)
+- [ ] 07 Visualizar os detalhes de uma questão respondida por um aluno (mostrar as
+alternativas exibidas e a resposta do aluno)
+
+**Global**
+- [ ] 08 Escrever o relatório técnico
+- [ ] 09 Diagramas 
+- [ ] 10 Tabela de Rotas
+- [ ] 11 Prototipo
+- [ ] 12 Testes
+
+* Paulo 
+* Frederson
+* Tamires4
+
 ## Ciclo 2
 
 ### Integrantes
