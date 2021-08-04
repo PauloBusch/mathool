@@ -34,12 +34,12 @@ alternativas exibidas e a resposta do aluno)
 - [ ] 08 Escrever o relatório técnico
 - [ ] 09 Diagramas 
 - [ ] 10 Tabela de Rotas
-- [ ] 11 Prototipo
-- [ ] 12 Testes
+- [ ] 11 Testes
+- [ ] 12 Logs
 
-* Paulo 
-* Frederson
-* Tamires4
+* Paulo 01, 02, 03, 08, 11, 12
+* Frederson 04, 05, 07, 08, 09, 12
+* Tamires 06, 08, 10, 12
 
 ## Ciclo 2
 
