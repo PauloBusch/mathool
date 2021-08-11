@@ -3,12 +3,13 @@
     <table>
       <thead>
         <tr>
-          <td>codigo</td>
-          <td>nome</td>
-          <td>serie</td>
-          <td>classe</td>
-          <td></td>
-          <td v-if="(Role.Teacher == User.role)"></td>
+          <td>Codigo</td>
+          <td>Nome</td>
+          <td>Serie</td>
+          <td>Classe</td>
+          <td>Ano</td>
+          <td v-if="!(Role.Teacher == User.role)"></td>
+          <td colspan="2" v-if="(Role.Teacher == User.role)">Ações</td>
         </tr>
       </thead>
       <tbody>
@@ -17,6 +18,7 @@
           <td>{{cla.name}}</td>
           <td>{{cla.serie}}</td>
           <td>{{cla.class}}</td>
+          <td>{{cla.year}}</td>
           <td v-if="(Role.Teacher == User.role)" class="invite"><router-link :to="'/mathool/class-form/' + cla._id"><i class="far fa-edit" title="editar"> Editar</i></router-link></td>
           <td v-if="(Role.Student == User.role)" class="invite">
             <i v-on:click="modalEditActive = true; classe = cla" class="cursor-pointer fa fa-sign-in-alt" title="se inscrever na sala">

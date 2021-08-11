@@ -1,5 +1,5 @@
 <template>
-    <form class="centred p-fluid card" @submit.prevent="save">
+    <form class="centred p-fluid" @submit.prevent="save">
         <h2>{{isNew ? 'Cadastrar ': 'Alterar '}}Classe</h2>
         <div class="p-field">
             <div class="p-float-label">
@@ -25,13 +25,13 @@
             </div>
             <small class="p-error" v-if="submitted && !!errors.class">{{ errors.class }}</small>
         </div>
-        <div v-if="isNew" class="p-field">
+        <div class="p-field">
             <div class="p-float-label">
-                <InputText id="code" name="code"  type="text" v-model="values.code"
-                    :class="{ 'p-invalid': submitted && errors.code }"/>
-                <label for="code">Código de Turma</label>
+                <InputText id="year" name="year"  type="number" v-model="values.year"
+                    :class="{ 'p-invalid': submitted && errors.year }"/>
+                <label for="year">Ano</label>
             </div>
-            <small class="p-error" v-if="submitted && !!errors.code">{{ errors.code }}</small>
+            <small class="p-error" v-if="submitted && !!errors.year">{{ errors.year }}</small>
         </div>
         <Button v-if="isNew" type="submit" label="CADASTRAR" />
         <Button v-if="!isNew" type="submit" label="ALTERAR" />
@@ -54,7 +54,7 @@
                 name: '',
                 serie: '',
                 class: '',
-                code: '',
+                year: '',
                 id: ''
 
             };
@@ -73,7 +73,7 @@
                     .required('O campo é obrigatório'),
                 class: Yup.string()
                     .required('O campo é obrigatório'),
-                code: Yup.string()
+                year: Yup.string()
                     .required('O campo é obrigatório'),
             });
 
@@ -87,7 +87,7 @@
                     this.values.name = res.data.data.name;
                     this.values.serie = res.data.data.serie;
                     this.values.class = res.data.data.class;
-                    this.values.code = res.data.data.code;
+                    this.values.year = res.data.data.year;
                 });
             }
 
@@ -98,7 +98,7 @@
             'values.name'(){ this.validate('name'); },
             'values.serie'(){ this.validate('serie'); },
             'values.class'(){ this.validate('class'); },
-            'values.classCode'(){ this.validate('class'); },
+            'values.year'(){ this.validate('year'); },
         },
         methods: {
             save(){ 
@@ -113,7 +113,7 @@
                         try {
                             await createAsync(this.values);
                             createToast("Cadastrado", { type: 'success' })
-                            setTimeout(() => this.$router.push('/'), 1500);
+                            setTimeout(() => this.$router.push('/mathool/list-class'), 1500);
                         } catch (error) { 
                             handleErrors(error, 'Falha ao cadastrar Classe!'); 
                         }
@@ -135,7 +135,7 @@
                                 console.log(res.data.data);
                             });
                             createToast("Alterado", { type: 'success' })
-                            setTimeout(() => this.$router.push('/'), 1500);
+                            setTimeout(() => this.$router.push('/mathool/list-class'), 1500);
                         }catch (error){
                             handleErrors(error, 'Falha ao alterar Classe!'); 
                         }
@@ -169,6 +169,13 @@
 <style scoped>
   form {
     background-color: white;
-    max-width: 400px;
+    width: 50%;
+    max-width: 800px;
+  }
+
+  @media only screen and (max-width: 640px) {
+    form {
+      width: 85%;
+    }
   }
 </style>
