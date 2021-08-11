@@ -35,7 +35,8 @@ class ClassService {
             name: data.name,
             serie: data.serie,
             class: data.class,
-            code: data.code,            
+            year: data.year,            
+            code: data.serie + data.class + '-' + data.year,            
             professor_id: req.user._id,
             active_class: true
         }; 
@@ -55,8 +56,7 @@ class ClassService {
             name: data.name,
             serie: data.serie,
             class: data.class,
-            code: data.code,
-            active_class: req.user.active_class
+            year: data.year
         };
         await Class.updateOne({ _id }, classe);
 
@@ -93,7 +93,7 @@ class ClassService {
         if (!data.name) errors.push('Parameter name is required');
         if (!data.serie) errors.push('Parameter serie is required');
         if (!data.class) errors.push('Parameter class is required');
-        if (!data.code) errors.push('Parameter code is required');
+        if (!data.year) errors.push('Parameter code is required');
         
         return errors;
     }
@@ -104,6 +104,7 @@ class ClassService {
             name: data.name,
             serie: data.serie,
             class: data.class,
+            year: data.year,
             code: data.code,
             professor_id: data.professor_id,
             active_class: data.active_class
