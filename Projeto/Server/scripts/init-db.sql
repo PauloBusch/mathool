@@ -15,52 +15,52 @@ CREATE SCHEMA IF NOT EXISTS `mathool` DEFAULT CHARACTER SET utf8 ;
 USE `mathool` ;
 
 -- -----------------------------------------------------
--- Table `mathool`.`users`
+-- Table `mathool`.`Users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mathool`.`users` (
-  `id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `mathool`.`Users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `guid` VARCHAR(38) NOT NULL,
   `name` VARCHAR(80) NOT NULL,
-  `class_code` VARCHAR(10) NOT NULL,
+  `classCode` VARCHAR(10) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `guid_UNIQUE` (`guid` ASC) VISIBLE)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mathool`.`questions`
+-- Table `mathool`.`Questions`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mathool`.`questions` (
+CREATE TABLE IF NOT EXISTS `mathool`.`Questions` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
+  `userId` INT NOT NULL,
   `level` INT NOT NULL,
   `operation` CHAR NOT NULL,
   `expression` VARCHAR(45) NOT NULL,
-  `expected_result` FLOAT NOT NULL,
-  `created_at` DATETIME NOT NULL,
+  `expectedResult` FLOAT NOT NULL,
+  `createdAt` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_question_users_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_question_users_idx` (`userId` ASC) VISIBLE,
   CONSTRAINT `fk_question_users`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `mathool`.`users` (`id`)
+    FOREIGN KEY (`userId`)
+    REFERENCES `mathool`.`Users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mathool`.`variables`
+-- Table `mathool`.`Variables`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mathool`.`variables` (
-  `id` INT NOT NULL,
+CREATE TABLE IF NOT EXISTS `mathool`.`Variables` (
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `value` INT NOT NULL,
-  `question_id` INT NOT NULL,
+  `questionId` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_variables_question_idx` (`question_id` ASC) VISIBLE,
+  INDEX `fk_variables_question_idx` (`questionId` ASC) VISIBLE,
   CONSTRAINT `fk_variables_question`
-    FOREIGN KEY (`question_id`)
-    REFERENCES `mathool`.`questions` (`id`)
+    FOREIGN KEY (`questionId`)
+    REFERENCES `mathool`.`Questions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -70,24 +70,24 @@ ENGINE = InnoDB;
 -- Table `mathool`.`answers`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mathool`.`answers` (
-  `id` INT NOT NULL,
-  `question_id` INT NOT NULL,
-  `user_id` INT NOT NULL,
-  `is_last` TINYINT(1) NULL,
-  `right_answer` TINYINT(1) NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `questionId` INT NOT NULL,
+  `userId` INT NOT NULL,
+  `isLast` TINYINT(1) NULL,
+  `rightAnswer` TINYINT(1) NULL,
   `response` FLOAT NOT NULL,
-  `created_at` DATETIME NOT NULL,
+  `createdAt` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_answers_question_idx` (`question_id` ASC) VISIBLE,
-  INDEX `fk_answers_users_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_answers_question_idx` (`questionId` ASC) VISIBLE,
+  INDEX `fk_answers_users_idx` (`userId` ASC) VISIBLE,
   CONSTRAINT `fk_answers_question`
-    FOREIGN KEY (`question_id`)
-    REFERENCES `mathool`.`questions` (`id`)
+    FOREIGN KEY (`questionId`)
+    REFERENCES `mathool`.`Questions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_answers_users`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `mathool`.`users` (`id`)
+    FOREIGN KEY (`userId`)
+    REFERENCES `mathool`.`Users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -97,29 +97,29 @@ ENGINE = InnoDB;
 -- Table `mathool`.`logs`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `mathool`.`logs` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `type` ENUM('QUESTION_CREATED', 'ANSWER_CREATED') NOT NULL,
-  `user_id` INT NOT NULL,
-  `question_id` INT NULL,
-  `answer_id` INT NULL,
-  `created_at` DATETIME NOT NULL,
+  `userId` INT NOT NULL,
+  `questionId` INT NULL,
+  `answerId` INT NULL,
+  `createdAt` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_logs_question_idx` (`question_id` ASC) VISIBLE,
-  INDEX `fk_logs_answer_idx` (`answer_id` ASC) VISIBLE,
-  INDEX `fk_logs_users_idx` (`user_id` ASC) VISIBLE,
+  INDEX `fk_logs_question_idx` (`questionId` ASC) VISIBLE,
+  INDEX `fk_logs_answers_idx` (`answerId` ASC) VISIBLE,
+  INDEX `fk_logs_users_idx` (`userId` ASC) VISIBLE,
   CONSTRAINT `fk_logs_question`
-    FOREIGN KEY (`question_id`)
-    REFERENCES `mathool`.`questions` (`id`)
+    FOREIGN KEY (`questionId`)
+    REFERENCES `mathool`.`Questions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_logs_answers`
-    FOREIGN KEY (`answer_id`)
+    FOREIGN KEY (`answerId`)
     REFERENCES `mathool`.`answers` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_logs_users`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `mathool`.`users` (`id`)
+    FOREIGN KEY (`userId`)
+    REFERENCES `mathool`.`Users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
