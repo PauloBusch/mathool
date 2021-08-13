@@ -1,8 +1,8 @@
 const { Types } = require('mongoose');
 const { ObjectId } = Types;
 
-const { Class } = require('../database/models');
-const role = require('../utils/enums/roles');
+const { Class } = require('../database/mongo/models');
+const roles = require('../utils/enums/roles');
 const { bindAll } = require('../utils/helpers/context');
 
 class ClassService {
@@ -21,7 +21,7 @@ class ClassService {
         const professor_id = req.user._id;
         const active_class = true;
 
-        const classes = (role.Teacher == req.user.role) ? 
+        const classes = (roles.Teacher == req.user.role) ? 
             await Class.find( { professor_id } ) : 
             await Class.find( { active_class } );
         res.json({ data: classes.map(classe => this.mapClassResponse(classe)) });

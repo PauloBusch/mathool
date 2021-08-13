@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const { Types } = require('mongoose');
 const { ObjectId } = Types;
 
-const { User, Class } = require('../database/models');
+const { User, Class } = require('../database/mongo/models');
 const { merge } = require('../utils/helpers/errors');
 const { bindAll } = require('../utils/helpers/context');
 const roles = require('../utils/enums/roles');

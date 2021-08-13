@@ -1,8 +1,7 @@
 const { Types } = require('mongoose');
 const { ObjectId } = Types;
 
-const { User } = require('../database/models');
-const { Role } = require('../utils/enums/roles');
+const { User } = require('../database/mongo/models');
 const { bindAll } = require('../utils/helpers/context');
 
 class StudentService {

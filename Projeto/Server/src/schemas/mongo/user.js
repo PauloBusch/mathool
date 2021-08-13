@@ -1,5 +1,5 @@
 const { Schema } = require('mongoose');
-const roles = require('../utils/enums/roles');
+const roles = require('../../utils/enums/roles');
 
 module.exports = new Schema({
     name: { type: String, required: true, maxLength: 150 },

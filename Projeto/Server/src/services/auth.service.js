@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const { merge } = require('../utils/helpers/errors');
-const { User } = require("../database/models");
+const { User } = require("../database/mongo/models");
 const { bindAll } = require("../utils/helpers/context");
 const { MailDetails } = require('../models/smtp/email-detail');
 const mailService = require('./email.service');
