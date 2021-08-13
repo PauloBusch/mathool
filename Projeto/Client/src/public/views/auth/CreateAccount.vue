@@ -38,6 +38,7 @@
                     :class="{ 'p-invalid': submitted && errors.password }"/>
                 <label for="password">Senha</label>
             </div>
+            <small class="help-text">A senha deve conter caracteres especiais, números e letras em maiúsculo e minúsculo com no mínimo 8 caracteres</small>
             <small class="p-error" v-if="submitted && !!errors.password">{{ errors.password }}</small>
         </div>
         <div class="p-field">
@@ -154,5 +155,9 @@
   form {
     background-color: white;
     max-width: 400px;
+  }
+  .help-text {
+      opacity: .8;
+      display: block;
   }
 </style>
