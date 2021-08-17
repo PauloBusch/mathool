@@ -21,7 +21,7 @@ class ClassService {
         const professor_id = req.user._id;
         const active_class = true;
 
-        const classes = (roles.Teacher == req.user.role) ? 
+        const classes = (roles.TEACHER == req.user.role) ? 
             await Class.find( { professor_id } ) : 
             await Class.find( { active_class } );
         res.json({ data: classes.map(classe => this.mapClassResponse(classe)) });

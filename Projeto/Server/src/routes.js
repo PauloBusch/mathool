@@ -16,17 +16,17 @@ function routes(server) {
   protectedApi.use(authMidware);
 
   protectedApi.get('/classes', classService.getAllAsync);
-  protectedApi.post('/classes', roleMidware([roles.Teacher]), classService.createAsync);
-  protectedApi.get('/classes/:id', roleMidware([roles.Teacher]), classService.getByIdAsync);
-  protectedApi.put('/classes/:id', roleMidware([roles.Teacher]), classService.updateAsync);
-  protectedApi.delete('/classes/:id', roleMidware([roles.Teacher]), classService.removeAsync);
+  protectedApi.post('/classes', roleMidware([roles.TEACHER]), classService.createAsync);
+  protectedApi.get('/classes/:id', roleMidware([roles.TEACHER]), classService.getByIdAsync);
+  protectedApi.put('/classes/:id', roleMidware([roles.TEACHER]), classService.updateAsync);
+  protectedApi.delete('/classes/:id', roleMidware([roles.TEACHER]), classService.removeAsync);
 
-  protectedApi.put('/active-class/:id', roleMidware([roles.Teacher]), classService.indexAsync);
+  protectedApi.put('/active-class/:id', roleMidware([roles.TEACHER]), classService.indexAsync);
   
   protectedApi.put('/student-class/', studentService.updateStudentClassAsync);
   protectedApi.get('/student-class/', studentService.getAsync);
   
-  protectedApi.get('/users', roleMidware([roles.Teacher]), userService.getAllAsync);
+  protectedApi.get('/users', roleMidware([roles.TEACHER]), userService.getAllAsync);
   protectedApi.get('/users/:id', userService.getByIdAsync);
   protectedApi.put('/users/:id', userService.updateAsync);
 

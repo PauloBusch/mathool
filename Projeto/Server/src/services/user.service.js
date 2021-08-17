@@ -88,8 +88,8 @@ class UserService {
         if (!_id && data.password !== data.confirmPassword) 
             errors.push('Parameter confirmPassword is not equal to password');
         if (!_id && !data.role) errors.push('Parameter role is required');
-        if (!_id && data.role && [roles.Teacher, roles.Student].indexOf(data.role) === -1) 
-            errors.push(`Parameter type require in (${roles.Teacher}, ${roles.Student})`);
+        if (!_id && data.role && [roles.TEACHER, roles.STUDENT].indexOf(data.role) === -1) 
+            errors.push(`Parameter type require in (${roles.TEACHER}, ${roles.STUDENT})`);
         if (data.classCode && !await MongoDb.Class.exists({ code: data.classCode }))
             errors.push('Class with code is not found');
         return errors;

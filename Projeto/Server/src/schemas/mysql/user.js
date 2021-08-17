@@ -10,6 +10,7 @@ module.exports = sequelize => {
             autoIncrement: true
         },
         guid: {
+            unique: true,
             type: DataTypes.STRING(38),
             allowNull: false
         },
@@ -21,14 +22,7 @@ module.exports = sequelize => {
     }, {
         sequelize,
         modelName: 'Users',
-        timestamps: false,
-        indexes: [
-            {
-                name: 'guid_UNIQUE',
-                unique: true,
-                fields: ['guid']
-            }
-        ]
+        timestamps: false
     });
 
     return User;

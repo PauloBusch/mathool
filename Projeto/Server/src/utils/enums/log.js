@@ -1,0 +1,4 @@
+module.exports = {
+    QUESTION_CREATED: 'QUESTION_CREATED', 
+    ANSWER_CREATED: 'ANSWER_CREATED'
+}
