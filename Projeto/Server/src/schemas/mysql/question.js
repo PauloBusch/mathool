@@ -29,6 +29,15 @@ module.exports = sequelize => {
             type: DataTypes.STRING(45),
             allowNull: false
         },
+        expectedResult: {
+            type: DataTypes.FLOAT,
+            allowNull: false
+        },
+        isLast: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
+        },
         createdAt: DataTypes.DATE
     }, {
         sequelize,
