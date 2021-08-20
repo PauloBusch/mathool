@@ -21,17 +21,15 @@ class QuestionService {
         let question = await Question.findOne({ where: { isLast: true } });
         if (question) {
             question.variables = await Variable.findAll({ where: { questionId: question.id } });
-            // TODO: fix query
-            // question.operations = await Operation.findAll({ 
-            //     where: { ['OperationsQuestion.questionId']: question.id }, 
-            //     include: [
-            //         { 
-            //             attributes: ['questionId'],
-            //             as: 'OperationsQuestion',
-            //             model: QuestionOperations
-            //         }
-            //     ] 
-            // });
+            question.operations = await Operation.findAll({ 
+                include: [
+                    { 
+                        as: 'OperationsQuestion',
+                        model: QuestionOperations,
+                        where: { questionId: question.id }
+                    }
+                ] 
+            });
             return res.json({ data: this.mapQuestion(question) });
         }
 

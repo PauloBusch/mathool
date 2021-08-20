@@ -17,6 +17,9 @@ const models = {
     Log: logSchema(sequelize)
 };
 
+models.Operation.belongsToMany(models.Question, { through: models.QuestionOperations, as: 'questions', foreignKey: 'operationId' });
+models.Question.belongsToMany(models.Operation, { through: models.QuestionOperations, as: 'operations', foreignKey: 'questionId' });
+
 models.Operation.hasMany(models.QuestionOperations, { foreignKey: 'operationId', as: 'OperationsQuestion' });
 models.QuestionOperations.belongsTo(models.Operation, { foreignKey: 'operationId', as: 'OperationsQuestion' });
 

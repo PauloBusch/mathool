@@ -6,12 +6,10 @@ module.exports = sequelize => {
     QuestionOperations.init({
         questionId: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
             allowNull: false
         },
         operationId: {
             type: DataTypes.INTEGER,
-            primaryKey: true,
             allowNull: false
         }
     }, { 
