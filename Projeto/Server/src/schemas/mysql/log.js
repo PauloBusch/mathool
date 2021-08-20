@@ -36,7 +36,10 @@ module.exports = sequelize => {
                 key: 'id'
             }
         },
-        createdAt: DataTypes.DATE
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('now()')
+        }
     }, {
         sequelize,
         modelName: 'Logs',

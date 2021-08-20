@@ -5,6 +5,7 @@ const { merge } = require('../utils/helpers/errors');
 const { User } = require("../database/mongo/models");
 const { bindAll } = require("../utils/helpers/context");
 const { MailDetails } = require('../models/smtp/email-detail');
+const MySqlDb = require('../database/mysql/models');
 const mailService = require('./email.service');
 const passwordValidator = require('../utils/validators/password');
 
@@ -15,13 +16,15 @@ class AuthService {
         if (errors.length) return res.status(400).json({ errors });
         
         const defaultError = 'User or password is invalid';
-        const user = await User.findOne({ email: data.email });
-        if (!user) return res.status(400).json({ errors: [defaultError] });
+        const mongoUser = await User.findOne({ email: data.email });
+        if (!mongoUser) return res.status(400).json({ errors: [defaultError] });
+        const mysqlUser = await MySqlDb.User.findOne({ where: { guid: mongoUser._id.toString() } });
+        if (!mysqlUser) return res.status(400).json({ errors: [defaultError] });
 
-        const isValidPassword = bcrypt.compareSync(data.password, user.password);
+        const isValidPassword = bcrypt.compareSync(data.password, mongoUser.password);
         if (!isValidPassword) return res.status(400).json({ errors: [defaultError] });
 
-        const userData = this.mapUserResponse(user);
+        const userData = this.mapUserResponse(mongoUser, mysqlUser);
         const token = jwt.sign(
             { user: userData }, 
             process.env.SECRET, 
@@ -73,13 +76,14 @@ class AuthService {
         });
     }
 
-    mapUserResponse(data) {
+    mapUserResponse(mongoUser, mysqlUser) {
         return {
-            _id: data._id,
-            name: data.name,
-            email: data.email,
-            role: data.role,
-            classCode: data.classCode
+            _id: mongoUser._id,
+            id: mysqlUser.id,
+            name: mongoUser.name,
+            email: mongoUser.email,
+            role: mongoUser.role,
+            classCode: mongoUser.classCode
         };
     }
 

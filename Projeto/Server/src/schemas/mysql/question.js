@@ -31,10 +31,13 @@ module.exports = sequelize => {
         },
         isLast: {
             type: DataTypes.BOOLEAN,
-            defaultValue: false,
+            defaultValue: true,
             allowNull: false
         },
-        createdAt: DataTypes.DATE
+        createdAt: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('now()')
+        }
     }, {
         sequelize,
         modelName: 'Questions',

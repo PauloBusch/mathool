@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "557f1560-2d9c-4aca-9c15-e44e0180855b",
+		"_postman_id": "61d127f3-0a07-4aa8-b672-932e244191f8",
 		"name": "Mathool",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -143,7 +143,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Paulo Ricardo Busch\",\r\n    \"email\": \"paulo20201515@gmail.com\",\r\n    \"role\": \"Professor\",\r\n    \"password\": \"Pass123$\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Novo usuário\",\r\n    \"email\": \"novo12@email.com\",\r\n    \"role\": \"Professor\",\r\n    \"password\": \"Pass123$\",\r\n    \"confirmPassword\": \"Pass123$\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -180,7 +180,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Paulo Ricardo Busch\",\r\n    \"email\": \"paulo202015@outlook.com.br\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Paulo Ricardo Busch\",\r\n    \"email\": \"novo@email.com.br\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -298,6 +298,40 @@
 								"oapi",
 								"contact",
 								"send-email"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "questions",
+			"item": [
+				{
+					"name": "getLast",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/questions/last",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"questions",
+								"last"
 							]
 						}
 					},

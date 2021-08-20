@@ -1,8 +1,10 @@
 const { bindAll } = require('../utils/helpers/context');
-const { Question, Variable, Log } = require('../database/mysql/models');
+const { Question, Variable, QuestionOperations, Operation, Log } = require('../database/mysql/models');
 const { operations, getSymbol, getName } = require('../utils/enums/operations');
 const { messArray, randItem } = require('../utils/helpers/array');
 const { randInt, randDistinctChars } = require('../utils/helpers/random');
+const { QUESTION_CREATED } = require('../utils/enums/log');
+const sequelize = require('../database/mysql');
 
 class QuestionService {
     constructor() {
@@ -16,10 +18,88 @@ class QuestionService {
     }
 
     async getLastAsync(req, res) {
-        res.json({ data: this.generateAsync(1) });
+        let question = await Question.findOne({ where: { isLast: true } });
+        if (question) {
+            question.variables = await Variable.findAll({ where: { questionId: question.id } });
+            question.operations = await Operation.findAll({ 
+                where: { ['OperationsQuestion.questionId']: question.id }, 
+                include: [
+                    { 
+                        attributes: ['questionId'],
+                        as: 'OperationsQuestion',
+                        model: QuestionOperations
+                    }
+                ] 
+            });
+            return res.json({ data: this.mapQuestion(question) });
+        }
+
+        const maxLevel = await Question.max('level') || 0;
+        const newLevel = maxLevel + 1;
+        const questionData = this.generate(newLevel);
+        question = {
+            userId: req.user.id,
+            level: newLevel,
+            ...questionData
+        };
+
+        const questionSaved = await this.saveAsync(question);
+        if (!questionSaved) return res.status(500).json({ errors: ['Cound not save question'] });
+
+        res.json({ data: this.mapQuestion({ ...questionData, id: questionSaved.id }) });
     }
 
-    generateAsync(level) {
+    async saveAsync(question) {
+        const transaction = await sequelize.transaction();
+
+        try {
+            const { operations, variables } = question;
+            const resultQuestion = await Question.create(
+                {
+                    userId: question.userId,
+                    level: question.level,
+                    expression: question.expression,
+                    expectedResult: question.expectedResult
+                }, 
+                { transaction }
+            );
+            const questionId = resultQuestion.id;
+
+            await Variable.bulkCreate(
+                variables.map(v => ({ ...v, questionId })), 
+                { transaction }
+            );
+            await QuestionOperations.bulkCreate(
+                operations.map(o => ({ operationId: o, questionId })), 
+                { transaction }
+            );
+
+            await Log.create({
+                type: QUESTION_CREATED,
+                userId: question.userId,
+                questionId: questionId
+            }, { transaction });
+            
+            await transaction.commit();
+            return resultQuestion;
+        } catch (error) {
+            console.error(error);
+            await transaction.rollback();
+            return null;
+        }
+    }
+
+    mapQuestion(question) {
+        return {
+            id: question.id,
+            level: question.level,
+            expression: question.expression,
+            variables: question.variables,
+            operations: question.operations
+        };
+    }
+
+    generate(level) {
         const distinctOperations = this.randDistinctOperations(level);
         const numbers = this.randNumbers(level);
         const variables = this.randVariables(level);
@@ -30,7 +110,8 @@ class QuestionService {
 
         for (let value of stackValues) {
             const operation = randItem(distinctOperations);
-            stackOperations.push(operation);
+            if (stackOperations.indexOf(operation) === -1) 
+                stackOperations.push(operation);
             stackExpression.push(value);
 
             const isLast = stackValues.indexOf(value) === stackValues.length - 1;
@@ -39,10 +120,13 @@ class QuestionService {
 
         const variablesDeclaration = variables.map(v => `let ${v.name}=${v.value};\n`).join('');
         const mathExpression = stackExpression.join(' ');
-        const finalExpression = variablesDeclaration + mathExpression;
-        const expectedResult = eval(finalExpression);
-        const expectedResultFormatted = parseFloat(expectedResult.toFixed(1));
-        return { operations: distinctOperations.map(o => getName(o)), variables, numbers, mathExpression, expectedResultFormatted };
+        const expectedResult = eval(variablesDeclaration + mathExpression);
+        return { 
+            expression: mathExpression,
+            expectedResult: parseFloat(expectedResult.toFixed(1)),
+            operations: stackOperations,
+            variables
+        };
     }
 
     randDistinctOperations(level) {
