@@ -1,6 +1,6 @@
 const { bindAll } = require('../utils/helpers/context');
 const { Question, Variable, Log } = require('../database/mysql/models');
-const { operations, getOperation } = require('../utils/enums/operations');
+const { operations, getSymbol, getName } = require('../utils/enums/operations');
 const { messArray, randItem } = require('../utils/helpers/array');
 const { randInt, randDistinctChars } = require('../utils/helpers/random');
 
@@ -34,7 +34,7 @@ class QuestionService {
             stackExpression.push(value);
 
             const isLast = stackValues.indexOf(value) === stackValues.length - 1;
-            if (!isLast) stackExpression.push(getOperation(operation));
+            if (!isLast) stackExpression.push(getSymbol(operation));
         }
 
         const variablesDeclaration = variables.map(v => `let ${v.name}=${v.value};\n`).join('');
@@ -42,7 +42,7 @@ class QuestionService {
         const finalExpression = variablesDeclaration + mathExpression;
         const expectedResult = eval(finalExpression);
         const expectedResultFormatted = parseFloat(expectedResult.toFixed(1));
-        return { operations: distinctOperations, variables, numbers, mathExpression, expectedResultFormatted };
+        return { operations: distinctOperations.map(o => getName(o)), variables, numbers, mathExpression, expectedResultFormatted };
     }
 
     randDistinctOperations(level) {

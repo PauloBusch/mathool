@@ -34,14 +34,13 @@ CREATE TABLE IF NOT EXISTS `mathool`.`Questions` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `userId` INT NOT NULL,
   `level` INT NOT NULL,
-  `operation` CHAR NOT NULL,
   `expression` VARCHAR(45) NOT NULL,
   `expectedResult` FLOAT NOT NULL,
-  `isLast` TINYINT(1) NOT NULL DEFAULT 1,
+  `isLast` TINYINT(1) NOT NULL,
   `createdAt` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_question_users_idx` (`userId` ASC) VISIBLE,
-  CONSTRAINT `fk_question_users`
+  INDEX `fk_question_users1_idx` (`userId` ASC) VISIBLE,
+  CONSTRAINT `fk_question_users1`
     FOREIGN KEY (`userId`)
     REFERENCES `mathool`.`Users` (`id`)
     ON DELETE NO ACTION
@@ -58,8 +57,8 @@ CREATE TABLE IF NOT EXISTS `mathool`.`Variables` (
   `value` INT NOT NULL,
   `questionId` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_variables_question_idx` (`questionId` ASC) VISIBLE,
-  CONSTRAINT `fk_variables_question`
+  INDEX `fk_variables_question1_idx` (`questionId` ASC) VISIBLE,
+  CONSTRAINT `fk_variables_question1`
     FOREIGN KEY (`questionId`)
     REFERENCES `mathool`.`Questions` (`id`)
     ON DELETE NO ACTION
@@ -68,25 +67,25 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mathool`.`answers`
+-- Table `mathool`.`Answers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mathool`.`answers` (
+CREATE TABLE IF NOT EXISTS `mathool`.`Answers` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `questionId` INT NOT NULL,
   `userId` INT NOT NULL,
-  `isLast` TINYINT(1) NOT NULL DEFAULT 1,
+  `isLast` TINYINT(1) NULL,
   `rightAnswer` TINYINT(1) NULL,
   `response` FLOAT NOT NULL,
   `createdAt` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_answers_question_idx` (`questionId` ASC) VISIBLE,
-  INDEX `fk_answers_users_idx` (`userId` ASC) VISIBLE,
-  CONSTRAINT `fk_answers_question`
+  INDEX `fk_answers_question1_idx` (`questionId` ASC) VISIBLE,
+  INDEX `fk_answers_users1_idx` (`userId` ASC) VISIBLE,
+  CONSTRAINT `fk_answers_question1`
     FOREIGN KEY (`questionId`)
     REFERENCES `mathool`.`Questions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_answers_users`
+  CONSTRAINT `fk_answers_users1`
     FOREIGN KEY (`userId`)
     REFERENCES `mathool`.`Users` (`id`)
     ON DELETE NO ACTION
@@ -95,9 +94,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mathool`.`logs`
+-- Table `mathool`.`Logs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mathool`.`logs` (
+CREATE TABLE IF NOT EXISTS `mathool`.`Logs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `type` ENUM('QUESTION_CREATED', 'ANSWER_CREATED') NOT NULL,
   `userId` INT NOT NULL,
@@ -106,21 +105,56 @@ CREATE TABLE IF NOT EXISTS `mathool`.`logs` (
   `createdAt` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_logs_question_idx` (`questionId` ASC) VISIBLE,
-  INDEX `fk_logs_answers_idx` (`answerId` ASC) VISIBLE,
-  INDEX `fk_logs_users_idx` (`userId` ASC) VISIBLE,
+  INDEX `fk_logs_answers1_idx` (`answerId` ASC) VISIBLE,
+  INDEX `fk_logs_users1_idx` (`userId` ASC) VISIBLE,
   CONSTRAINT `fk_logs_question`
     FOREIGN KEY (`questionId`)
     REFERENCES `mathool`.`Questions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_logs_answers`
+  CONSTRAINT `fk_logs_answers1`
     FOREIGN KEY (`answerId`)
-    REFERENCES `mathool`.`answers` (`id`)
+    REFERENCES `mathool`.`Answers` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_logs_users`
+  CONSTRAINT `fk_logs_users1`
     FOREIGN KEY (`userId`)
     REFERENCES `mathool`.`Users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mathool`.`Operations`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mathool`.`Operations` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `symbol` CHAR(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC) VISIBLE,
+  UNIQUE INDEX `symbol_UNIQUE` (`symbol` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mathool`.`QuestionOperations`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mathool`.`QuestionOperations` (
+  `operationId` INT NOT NULL,
+  `questionId` INT NOT NULL,
+  PRIMARY KEY (`operationId`, `questionId`),
+  INDEX `fk_Operation_has_Questions_Questions1_idx` (`questionId` ASC) VISIBLE,
+  INDEX `fk_Operation_has_Questions_Operation1_idx` (`operationId` ASC) VISIBLE,
+  CONSTRAINT `fk_Operation_has_Questions_Operation1`
+    FOREIGN KEY (`operationId`)
+    REFERENCES `mathool`.`Operations` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Operation_has_Questions_Questions1`
+    FOREIGN KEY (`questionId`)
+    REFERENCES `mathool`.`Questions` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -129,3 +163,12 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Seed `mathool`.`Operations`
+-- -----------------------------------------------------
+insert into Operations(id, name, symbol) values
+(1, 'Adição', '+'),
+(2, 'Subtração', '-'),
+(3, 'Multiplicação', '*'),
+(4, 'Divisão', '/');

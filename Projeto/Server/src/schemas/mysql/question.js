@@ -21,10 +21,6 @@ module.exports = sequelize => {
             type: DataTypes.INTEGER,
             allowNull: false 
         },
-        operation: {
-            type: DataTypes.CHAR,
-            allowNull: false
-        },
         expression: {
             type: DataTypes.STRING(45),
             allowNull: false
