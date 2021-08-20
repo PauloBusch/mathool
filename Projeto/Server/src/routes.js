@@ -9,6 +9,7 @@ const userService = require('./services/user.service');
 const studentService = require('./services/student.service');
 const contactService = require('./services/contact.service');
 const questionService = require('./services/question.service');
+const answerService = require('./services/answer.service');
 
 function routes(server) {
   const protectedApi = express.Router();
@@ -32,6 +33,7 @@ function routes(server) {
   protectedApi.get('/student-class', studentService.getAsync);
 
   protectedApi.get('/questions/last', questionService.getLastAsync);
+  protectedApi.post('/answers', answerService.createAsync);
 
   const openApi = express.Router();
   server.use('/oapi', openApi);

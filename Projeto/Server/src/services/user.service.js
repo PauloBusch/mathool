@@ -44,9 +44,9 @@ class UserService {
             password: hash
         };
         const { _id } = await MongoDb.User.create(user);
-        await MySqlDb.User.create({ guid: _id.toString(), ...user });
+        const { id } = await MySqlDb.User.create({ guid: _id.toString(), ...user });
 
-        res.json({ data: { _id, ...user, password: undefined } });
+        res.json({ data: { _id, id, ...user, password: undefined } });
     }
 
     async updateAsync(req, res) { 

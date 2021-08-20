@@ -29,7 +29,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"paulo20201515@gmail.com\",\r\n    \"password\": \"Pass123$\"\r\n}",
+							"raw": "{\r\n    \"email\": \"professor@email.com\",\r\n    \"password\": \"Pass123$\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -143,7 +143,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Novo usuário\",\r\n    \"email\": \"novo12@email.com\",\r\n    \"role\": \"Professor\",\r\n    \"password\": \"Pass123$\",\r\n    \"confirmPassword\": \"Pass123$\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Novo usuário\",\r\n    \"email\": \"professor@email.com\",\r\n    \"role\": \"Professor\",\r\n    \"password\": \"Pass123$\",\r\n    \"confirmPassword\": \"Pass123$\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -310,6 +310,20 @@
 			"item": [
 				{
 					"name": "getLast",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Set data\", function () {\r",
+									"    let data = pm.response.json().data;\r",
+									"    pm.environment.set('questionId', data.id)\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -332,6 +346,48 @@
 								"api",
 								"questions",
 								"last"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "answer",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"questionId\": {{questionId}},\r\n    \"response\": -18\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/answers",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"answers"
 							]
 						}
 					},

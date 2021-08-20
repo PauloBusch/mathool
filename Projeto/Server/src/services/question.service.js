@@ -1,5 +1,5 @@
 const { bindAll } = require('../utils/helpers/context');
-const { Question, Variable, QuestionOperations, Operation, Log } = require('../database/mysql/models');
+const { Question, Variable, QuestionOperations, Operation, Log, Answer } = require('../database/mysql/models');
 const { operations, getSymbol, getName } = require('../utils/enums/operations');
 const { messArray, randItem } = require('../utils/helpers/array');
 const { randInt, randDistinctChars } = require('../utils/helpers/random');
@@ -15,10 +15,22 @@ class QuestionService {
             countNumbers: level => Math.floor(2 + level * 0.05 + randInt(0, level  * 0.03)),
             countVariables: level => Math.floor(level * 0.05 + randInt(0, level * 0.03))
         };
+        this.questionsToIncrementLevel = 5;
     }
 
     async getLastAsync(req, res) {
-        let question = await Question.findOne({ where: { isLast: true } });
+        let question = await Question.findOne({ 
+            where: { isLast: true, userId: req.user.id },
+            include: [
+                {
+                    required: false,
+                    attributes: ['response', 'rightAnswer'],
+                    as: 'answers',
+                    model: Answer,
+                    where: { isLast: true }
+                }
+            ] 
+        });
         if (question) {
             question.variables = await Variable.findAll({ where: { questionId: question.id } });
             question.operations = await Operation.findAll({ 
@@ -33,8 +45,8 @@ class QuestionService {
             return res.json({ data: this.mapQuestion(question) });
         }
 
-        const maxLevel = await Question.max('level') || 0;
-        const newLevel = maxLevel + 1;
+        const countQuestions = await Question.count({ col: 'id', where: { userId: req.user.id } }) || 0;
+        const newLevel = Math.floor(countQuestions / this.questionsToIncrementLevel + 1);
         const questionData = this.generate(newLevel);
         question = {
             userId: req.user.id,
@@ -45,7 +57,7 @@ class QuestionService {
         const questionSaved = await this.saveAsync(question);
         if (!questionSaved) return res.status(500).json({ errors: ['Cound not save question'] });
 
-        res.json({ data: this.mapQuestion({ ...questionData, id: questionSaved.id }) });
+        res.json({ data: this.mapQuestion({ ...questionData, level: questionSaved.level, id: questionSaved.id }) });
     }
 
     async saveAsync(question) {
@@ -69,7 +81,7 @@ class QuestionService {
                 { transaction }
             );
             await QuestionOperations.bulkCreate(
-                operations.map(o => ({ operationId: o, questionId })), 
+                operations.map(o => ({ operationId: o.id, questionId })), 
                 { transaction }
             );
 
@@ -94,7 +106,12 @@ class QuestionService {
             level: question.level,
             expression: question.expression,
             variables: question.variables,
-            operations: question.operations
+            operations: (question.operations || [])
+                .map(o => ({ 
+                    id: o.id, 
+                    name: o.name, 
+                    symbol: o.symbol 
+                }))
         };
     }
 
@@ -123,7 +140,7 @@ class QuestionService {
         return { 
             expression: mathExpression,
             expectedResult: parseFloat(expectedResult.toFixed(1)),
-            operations: stackOperations,
+            operations: stackOperations.map(o => ({ id: o, name: getName(o), symbol: getSymbol(o) })),
             variables
         };
     }
