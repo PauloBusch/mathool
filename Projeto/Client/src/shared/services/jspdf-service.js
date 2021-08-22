@@ -4,16 +4,17 @@ import { jsPDF } from "jspdf";
 // import { html2canvas } from "html2canvas";
 
 
-  const doc = new jsPDF("l", "pt", "a4");
+const doc = new jsPDF("l", "pt", "a4");
 export function createReport(source){
+  
       console.log(source);
-      doc.text('teste', 10, 10);
       doc.html(source,  {
         callback: function (pdf) {
           pdf.save("document.pdf");
         },
-        x: 15,
-        y: 15
+        x: 5,
+        y: 10
       });
+      
 
 }
