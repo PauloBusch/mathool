@@ -7,12 +7,13 @@ class ReportService {
 
     async getReportAnswer(user, res){
         let data = { 
-            rightAnswer : null,
-            wrongAnswer : null,
-            totalAnswer: null,
-            rightAnswerPercent: null,
-            wrongAnswerPercent: null
+            rightAnswer : 0,
+            wrongAnswer : 0,
+            totalAnswer: 0,
+            rightAnswerPercent: 0,
+            wrongAnswerPercent: 0
         };
+
         let users = await User.findOne({
             attributes: ['id','name', 'classCode'],
             where: {
@@ -30,15 +31,15 @@ class ReportService {
             .then((cont)=> { 
                 data.wrongAnswer = cont; 
                 data.totalAnswer = data.rightAnswer + data.wrongAnswer;
-                data.rightAnswerPercent = (data.rightAnswer / data.totalAnswer * 100).toFixed(2);
-                data.wrongAnswerPercent = (data.wrongAnswer / data.totalAnswer * 100).toFixed(2);
-                res.json({ ...users.dataValues, ...data });
+                data.rightAnswerPercent = ((data.rightAnswer / data.totalAnswer) || 0 ).toFixed(2) * 100 + "%";
+                data.wrongAnswerPercent = ((data.wrongAnswer / data.totalAnswer) || 0 ).toFixed(2) * 100 + "%";
+                res.json({ data : { ...users.dataValues, ...data } });
             });
         });
     }
 
     async getReportAnswerByMyUserAsync(req, res){
-        this.getReportAnswer(req.user.id, res)  
+        this.getReportAnswer(req.user._id, res)  
     }
     async getReportAnswerByUserIdAsync(req, res){
         this.getReportAnswer(req.params.id, res )  

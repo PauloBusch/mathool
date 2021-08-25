@@ -17,7 +17,7 @@ export async function createAsync(data) {
     );
 }
 
-export async function getAllAsync() {
+export async function getAllClassAsync() {
     return await axios.get(
         API_BASE_URL,
         {

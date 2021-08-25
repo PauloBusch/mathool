@@ -17,7 +17,7 @@ class ClassService {
         res.json({ data: this.mapClassResponse(classe) });
      }
 
-    async getAllAsync(req, res) {
+    async getAllClassAsync(req, res) {
         const professor_id = req.user._id;
         const active_class = true;
 

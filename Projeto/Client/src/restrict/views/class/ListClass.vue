@@ -38,13 +38,18 @@
         <span v-on:click="modalEditActive = false" class="dispose cursor-pointer">x</span>
         <h4 class="header">{{classe.code}}</h4>
         <p class="body">
-          Gostaria de {{ registered(classe.code) ? 'sair da ': 'se inscrever na '}}sala: <strong>{{classe.name}}</strong>
+          <span v-if="registered(classe.code)">
+               Gostaria de sair da sala <strong>{{classe.name}}</strong>
+          </span>
+          <span v-if="!registered(classe.code)">
+               Gostaria de se inscrever na sala <strong>{{classe.name}}</strong>, <br/>obs.: sua incrição nessa sala resultara na saida das demais
+          </span>
         </p>
         <p class="body">
           <strong>{{classe.serie}}</strong> Serie, Turma <strong>{{classe.class}}</strong>
         </p>
         <div class="footer">
-          <Button @click="modalEditActive = false; registered(classe.code) ? removeClass(classe.code) : addClass(classe.code) " label="OK" />
+          <Button @click="modalEditActive = false; registered(classe.code) ? removeClass() : addClass(classe.code) " label="OK" />
           <Button class="p-button-secondary" @click="modalEditActive = false" label="CANCELAR" />
         </div>
     </div>
@@ -73,7 +78,7 @@
 
   import { handleErrors } from '@/public/handlers/error-handler';
 
-  import { getAllAsync, indexAsync } from '@/restrict/services/class-service';
+  import { getAllClassAsync, indexAsync } from '@/restrict/services/class-service';
   import { getAsync, updateAsync } from '@/restrict/services/student-service';
   import { Role } from '@/shared/consts/role';
   import { getUserStorage } from '@/shared/services/storage-service';
@@ -87,13 +92,13 @@
         User,
         modalEditActive: false,
         modalArchiveActive: false,
-        classe: [],
-        myClass: { _id: '', classCode: [] }
+        classe: '',
+        myClass: { _id: '', classCode: '' }
 
       }
     },
     mounted(){
-      getAllAsync().then((res) =>{ 
+      getAllClassAsync().then((res) =>{ 
         this.classes = res.data.data;
       });
 
@@ -105,15 +110,14 @@
     methods: {
       
       registered(classe){
-        return this.myClass.classCode.indexOf(classe) !== -1
+        if(this.myClass.classCode) return this.myClass.classCode.indexOf(classe) !== -1;
       },
       addClass(classe){
-        this.myClass.classCode.push(classe)
+        this.myClass.classCode = classe;
         this.updateStudentClass();
       },
-      removeClass(classe){   
-        const index = this.myClass.classCode.indexOf(classe);
-        this.myClass.classCode.splice(index, 1);
+      removeClass(){   
+        this.myClass.classCode = ' ';
         this.updateStudentClass();
       },
       updateStudentClass() {

@@ -13,6 +13,16 @@ export async function getAsync() {
         }
     );
 }
+export async function getAllStudentByClassCodeAsync(classCode) {
+    return await axios.get(
+        API_BASE_URL + '/' + classCode, 
+        {
+            headers: {
+                Authorization: 'Bearer ' + getTokenStorage()
+            }
+        }
+    );
+}
 
 export async function updateAsync(data) {
     return await axios.put(

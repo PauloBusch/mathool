@@ -40,7 +40,7 @@ class UserService {
             name: data.name,
             email: data.email,
             role: data.role,
-            classCode: data.classCode ? [data.classCode] : undefined,
+            classCode: data.classCode ? data.classCode : undefined,
             password: hash
         };
         const { _id } = await MongoDb.User.create(user);

@@ -10,7 +10,7 @@ const studentService = require('./services/student.service');
 const contactService = require('./services/contact.service');
 const questionService = require('./services/question.service');
 const answerService = require('./services/answer.service');
-const reportService = require('./services/report.service');
+const reportService = require('./services/student-report.service');
 
 function routes(server) {
   const protectedApi = express.Router();
@@ -22,7 +22,7 @@ function routes(server) {
   protectedApi.get('/users/:id', userService.getByIdAsync);
   protectedApi.put('/users/:id', userService.updateAsync);
 
-  protectedApi.get('/classes', classService.getAllAsync);
+  protectedApi.get('/classes', classService.getAllClassAsync);
   protectedApi.post('/classes', roleMidware([roles.TEACHER]), classService.createAsync);
   protectedApi.get('/classes/:id', roleMidware([roles.TEACHER]), classService.getByIdAsync);
   protectedApi.put('/classes/:id', roleMidware([roles.TEACHER]), classService.updateAsync);
@@ -32,6 +32,7 @@ function routes(server) {
   
   protectedApi.put('/student-class', studentService.updateStudentClassAsync);
   protectedApi.get('/student-class', studentService.getAsync);
+  protectedApi.get('/student-class/:classCode', studentService.getAllStudentByClassCodeAsync);
 
   protectedApi.get('/questions/last', questionService.getLastAsync);
   protectedApi.post('/answers', answerService.createAsync);
