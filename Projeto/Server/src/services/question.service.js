@@ -15,7 +15,7 @@ class QuestionService {
             countNumbers: level => Math.floor(2 + level * 0.05 + randInt(0, level  * 0.03)),
             countVariables: level => Math.floor(level * 0.05 + randInt(0, level * 0.03))
         };
-        this.questionsToIncrementLevel = 5;
+        this.questionsToIncrementLevel = 4;
     }
 
     async getLastAsync(req, res) {
@@ -60,6 +60,12 @@ class QuestionService {
         res.json({ data: this.mapQuestion({ ...questionData, level: questionSaved.level, id: questionSaved.id }) });
     }
 
+    async nextAsync(req, res) {
+        const question = await Question.findOne({ where: { isLast: true, userId: req.user.id } });
+        if (question) await Question.update({ isLast: false }, { where: { id: question.id } });
+        return res.json({  });
+    }
+
     async saveAsync(question) {
         const transaction = await sequelize.transaction();
 
@@ -101,7 +107,7 @@ class QuestionService {
     }
 
     mapQuestion(question) {
-        return {
+        const result = {
             id: question.id,
             level: question.level,
             expression: question.expression,
@@ -112,7 +118,16 @@ class QuestionService {
                     name: o.name, 
                     symbol: o.symbol 
                 }))
-        };
+        };        
+        if (question.answers && question.answers.length) {
+            const [ last ] = question.answers;
+            result.answer = {
+                response: last.response,  
+                rightAnswer: last.rightAnswer,  
+                expectedResult: question.expectedResult,
+            };
+        }
+        return result;
     }
 
     generate(level) {
@@ -139,7 +154,7 @@ class QuestionService {
         const expectedResult = eval(variablesDeclaration + mathExpression);
         return { 
             expression: mathExpression,
-            expectedResult: parseFloat(expectedResult.toFixed(1)),
+            expectedResult: parseFloat(expectedResult.toFixed(2)),
             operations: stackOperations.map(o => ({ id: o, name: getName(o), symbol: getSymbol(o) })),
             variables
         };

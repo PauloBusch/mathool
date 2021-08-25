@@ -10,7 +10,7 @@ const studentService = require('./services/student.service');
 const contactService = require('./services/contact.service');
 const questionService = require('./services/question.service');
 const answerService = require('./services/answer.service');
-const reportService = require('./services/student-report.service');
+const studentReportService = require('./services/student-report.service');
 
 function routes(server) {
   const protectedApi = express.Router();
@@ -34,11 +34,12 @@ function routes(server) {
   protectedApi.get('/student-class', studentService.getAsync);
   protectedApi.get('/student-class/:classCode', studentService.getAllStudentByClassCodeAsync);
 
-  protectedApi.get('/questions/last', questionService.getLastAsync);
-  protectedApi.post('/answers', answerService.createAsync);
+  protectedApi.get('/questions/last', roleMidware([roles.STUDENT]), questionService.getLastAsync);
+  protectedApi.get('/questions/next', roleMidware([roles.STUDENT]), questionService.nextAsync);
+  protectedApi.post('/answers', roleMidware([roles.STUDENT]), answerService.createAsync);
 
-  protectedApi.get('/report-student', reportService.getReportAnswerByMyUserAsync);
-  protectedApi.get('/report-student/:id', reportService.getReportAnswerByUserIdAsync);
+  protectedApi.get('/report-student', studentReportService.getReportAnswerByMyUserAsync);
+  protectedApi.get('/report-student/:id', studentReportService.getReportAnswerByUserIdAsync);
 
   const openApi = express.Router();
   server.use('/oapi', openApi);

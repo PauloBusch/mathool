@@ -39,7 +39,7 @@ class ReportService {
     }
 
     async getReportAnswerByMyUserAsync(req, res){
-        this.getReportAnswer(req.user._id, res)  
+        this.getReportAnswer(req.user.id, res)  
     }
     async getReportAnswerByUserIdAsync(req, res){
         this.getReportAnswer(req.params.id, res )  

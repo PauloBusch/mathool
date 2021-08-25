@@ -54,7 +54,7 @@ import { createReport } from '@/shared/services/jspdf-service';
   import { getAllClassAsync } from '@/restrict/services/class-service';
   import { getAllStudentByClassCodeAsync } from '@/restrict/services/student-service';
   import { handleErrors } from '@/public/handlers/error-handler';
-  
+
 export default {
     data(){
       const User = getUserStorage();
@@ -84,6 +84,7 @@ export default {
 
       try {
         if(Role.Student ==  getUserStorage().role)
+          console.log('Role.student')
           getReportAnswerByMyUserAsync().then((res) =>{ 
             this.reports = res.data;
           });
@@ -127,6 +128,7 @@ export default {
     methods: {
       
       gerarPDF(){
+
         createReport(document.querySelector('#container'), 'student-report');
       }
     },
