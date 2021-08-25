@@ -33,8 +33,9 @@ function routes(server) {
   protectedApi.put('/student-class', studentService.updateStudentClassAsync);
   protectedApi.get('/student-class', studentService.getAsync);
 
-  protectedApi.get('/questions/last', questionService.getLastAsync);
-  protectedApi.post('/answers', answerService.createAsync);
+  protectedApi.get('/questions/last', roleMidware([roles.STUDENT]), questionService.getLastAsync);
+  protectedApi.get('/questions/next', roleMidware([roles.STUDENT]), questionService.nextAsync);
+  protectedApi.post('/answers', roleMidware([roles.STUDENT]), answerService.createAsync);
 
   protectedApi.get('/report-student', reportService.getReportAnswerByMyUserAsync);
   protectedApi.get('/report-student/:id', reportService.getReportAnswerByUserIdAsync);

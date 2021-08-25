@@ -15,11 +15,10 @@ class AnswerService {
         const answer = await Answer.findOne({ where: { questionId: data.questionId, isLast: true } });
         const transaction = await sequelize.transaction();
         try {
-            const expectedFormatted = parseFloat(question.expectedResult).toFixed(1);
-            const resultFormatted = parseFloat(data.response).toFixed(1);
+            const expectedFormatted = parseFloat(question.expectedResult).toFixed(2);
+            const resultFormatted = parseFloat(data.response).toFixed(2);
 
             if (answer) await Answer.update({ isLast: false }, { where: { id: answer.id }, transaction });
-            await Question.update({ isLast: false }, { where: { id: question.id }, transaction });
             const resultAnswer = await Answer.create(
                 {
                     userId: req.user.id, ...data,
@@ -45,7 +44,7 @@ class AnswerService {
     mapAnswer(answer, question) {
         return {
             rightAnswer: answer.rightAnswer,
-            expectedResult: parseFloat(question.expectedResult).toFixed(1)
+            expectedResult: parseFloat(question.expectedResult)
         };
     }
 
