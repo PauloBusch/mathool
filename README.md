@@ -15,10 +15,10 @@
 | Tamires Cristina Cassiano |  Arquiteto |
 
 **Em resumo, os seguintes recursos deverão estar disponíveis para o aluno:**
-- [ ] 01 Visualizar uma questão
-- [ ] 02 Responder a questão e obter um retorno (acertou ou errou, o que inclui
+- [x] 01 Visualizar uma questão
+- [x] 02 Responder a questão e obter um retorno (acertou ou errou, o que inclui
 visualizar a resposta correta quando o mesmo errar)
-- [ ] 03 Responder a uma nova questão (com valores diferente)
+- [x] 03 Responder a uma nova questão (com valores diferente)
 - [x] 04 Visualizar um relatório de sua performance (informativo de quantas questões
 foram respondidas, acertos e erros)
 
