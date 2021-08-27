@@ -24,6 +24,5 @@ module.exports = sequelize => {
         modelName: 'Users',
         timestamps: false
     });
-
     return User;
 }

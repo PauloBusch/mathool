@@ -4,16 +4,11 @@
       <h2>Relatorio de Desempenho</h2>
       <h4><strong>Aluno:</strong> {{User.name}}</h4>
       <Button data-html2canvas-ignore="true" @click="gerarPDF()" type="button" label="Download em PDF" ></Button>
-      <div v-if="(Role.Teacher == User.role)" class="p-field p-col-12 p-md-3 select-student">
-          <span>
-            <label for="select-student">Classe: </label>
-            <Dropdown inputId="select-class" v-model="selectedClasses" :options="classes" optionLabel="name" placeholder="Select" />
-          </span>
-          <span>
-          <label for="select-student">Estudante: </label>
-          <Dropdown inputId="select-student" v-model="selectedStudent" :options="students" optionLabel="name" placeholder="Select" />
-          </span>
-      </div>
+    
+        <span>
+          <label for="select-student">Classe: </label>
+          <Dropdown inputId="select-class" v-model="selectedClasses" :options="classes" optionLabel="name" placeholder="Select" />
+        </span>
       <table>
         <thead>
           <tr>
@@ -48,28 +43,24 @@ import { createReport } from '@/shared/services/jspdf-service';
   import Button from 'primevue/button';
   import Dropdown from 'primevue/dropdown'
 
-  import { getReportAnswerByMyUserAsync, getReportAnswerByUserIdAsync } from '@/restrict/services/student-report-service';
+  // import { getReportAnswerByMyUserAsync  } from '@/restrict/services/student-report-service';
   import { Role } from '@/shared/consts/role';
   import { getUserStorage } from '@/shared/services/storage-service';
   import { getAllClassAsync } from '@/restrict/services/class-service';
-  import { getAllStudentByClassCodeAsync } from '@/restrict/services/student-service';
+  import { getReportAnswerByClassIdAsync } from '@/restrict/services/class-report-service';
   import { handleErrors } from '@/public/handlers/error-handler';
 
 export default {
     data(){
       const User = getUserStorage();
       const selectedClasses = null;
-      const selectedStudent = null;
       const classes = [];
-      const students = [];
       return {
         reports:undefined,
         Role: Role ,
         User: User,
         selectedClasses,
-        selectedStudent,
-        classes,
-        students
+        classes
       }
     },
 
@@ -81,46 +72,18 @@ export default {
           this.classes.push({ name: element.code, code: element.code});
         });
       });
-
-      try {
-        if(Role.Student ==  getUserStorage().role){
-          getReportAnswerByMyUserAsync().then((res) =>{ 
-            this.reports = res.data.data;
-            
-          });
-        }
-      } catch (error) {
-        handleErrors(error, 'Falha ao carregar relatorio de aluno!'); 
-      }
       
-
-
-
     },
 
     watch: {
       selectedClasses : function(){
         try {
-            getAllStudentByClassCodeAsync(this.selectedClasses.code).then((res)=>{
-              let array = res.data.data;
-              this.students.splice(0, this.students.length);
-              this.students.push({ name: "Todos Estudantes", code: "x"});
-              array.forEach(element => {
-                this.students.push({ name: element.name, code: element.id});
-              });
-          });
+            getReportAnswerByClassIdAsync(this.selectedClasses.code).then((res)=>{
+                this.reports = res.data;
+            });
+            
         } catch (error) {
             handleErrors(error, 'Falha ao carregar relatorio de aluno!'); 
-        }
-      },
-      selectedStudent : function(){
-        try {
-            getReportAnswerByUserIdAsync(this.selectedStudent.code).then((res) => {
-              this.reports = res.data.data;
-            });
-          
-        } catch (error) {
-          handleErrors(error, 'Falha ao carregar relatorio de aluno!'); 
         }
       },
       

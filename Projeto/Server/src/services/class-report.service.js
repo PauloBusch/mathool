@@ -1,48 +1,43 @@
 const { User, Answer } = require('../database/mysql/models');
 const { bindAll } = require('../utils/helpers/context');
 
+
+
 class ReportService {
 
     
+    query = "SELECT u.classCode, "+
+        "a.rightAnswers, "+
+        "( a.rightAnswers / (a.rightAnswers + b.wrongtAnswers)*100) AS rightAnswersPercent, "+
+        "b.wrongtAnswers, ( b.wrongtAnswers / (a.rightAnswers + b.wrongtAnswers)*100) AS wrongAnswersPercent, "+
+        "(a.rightAnswers + b.wrongtAnswers) AS totalAnswer "+
+    "FROM users AS u INNER JOIN "+
+        "(SELECT "+
+            "userId, "+
+            "classCode, "+
+            "COUNT(answers.id) AS rightAnswers "+
+        "FROM answers INNER JOIN users ON (users.id = answers.userId) "+
+        "WHERE rightAnswer = 1 GROUP BY classCode) AS a ON (a.userId = u.id) "+
+    "INNER JOIN "+
+        "(SELECT "+
+            "userId, "+
+            "classCode, "+
+            "COUNT(answers.id) AS wrongtAnswers "+
+        "FROM answers INNER JOIN users ON (users.id = answers.userId) "+
+        "WHERE rightAnswer = 0 GROUP BY classCode) AS b ON (b.userId = u.id) "
 
-    async getReportAnswer(user, res){
-        let data = { 
-            rightAnswer : 0,
-            wrongAnswer : 0,
-            totalAnswer: 0,
-            rightAnswerPercent: 0,
-            wrongAnswerPercent: 0
-        };
-
-        let users = await User.findOne({
-            attributes: ['id','name', 'classCode'],
-            where: {
-                id: user
-            } 
-        });
-        await Answer.count(  {
-            where: { userId: user, rightAnswer: true}
+    async getReportClassByClassCodeAsync(req, res){
+        const myClassCode = req.params.classCode;
+        const [results] = await Answer.sequelize.query({
+            query: this.query + 'WHERE u.classCode = "' + myClassCode + '"'
         })
-        .then((cont) => {  
-            data.rightAnswer = cont; 
-            Answer.count({
-                where: { userId: user, rightAnswer: false}
-            })
-            .then((cont)=> { 
-                data.wrongAnswer = cont; 
-                data.totalAnswer = data.rightAnswer + data.wrongAnswer;
-                data.rightAnswerPercent = ((data.rightAnswer / data.totalAnswer) || 0 ).toFixed(2) * 100 + "%";
-                data.wrongAnswerPercent = ((data.wrongAnswer / data.totalAnswer) || 0 ).toFixed(2) * 100 + "%";
-                res.json({ data : { ...users.dataValues, ...data } });
-            });
-        });
+        res.json({data : results});
     }
-
-    async getReportAnswerByMyUserAsync(req, res){
-        this.getReportAnswer(req.user._id, res)  
-    }
-    async getReportAnswerByUserIdAsync(req, res){
-        this.getReportAnswer(req.params.id, res )  
+    async getReportClassAsync(req, res){
+        const [results] = await Answer.sequelize.query({
+            query: this.query
+        })
+        res.json({data : results})
     }
 
 }
