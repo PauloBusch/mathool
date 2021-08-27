@@ -5,14 +5,13 @@
       <h4><strong>Aluno:</strong> {{User.name}}</h4>
       <Button data-html2canvas-ignore="true" @click="gerarPDF()" type="button" label="Download em PDF" ></Button>
     
-        <span>
-          <label for="select-student">Classe: </label>
+        <span class="select-class">
+          <label for="select-class">Classe: </label>
           <Dropdown inputId="select-class" v-model="selectedClasses" :options="classes" optionLabel="name" placeholder="Select" />
         </span>
       <table>
         <thead>
           <tr>
-            <td>Nome</td>
             <td>Codigo de Classe</td>
             <td>Certas</td>
             <td>% Certas</td>
@@ -22,14 +21,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="rep in reports" v-bind:key="rep.id">
-            <td>{{rep.name}}</td>
+          <tr v-for="rep in reports" v-bind:key="rep.classCode">
             <td>{{rep.classCode}}</td>
-            <td>{{rep.rightAnswer}}</td>
-            <td>{{rep.rightAnswerPercent}}</td>
-            <td>{{rep.wrongAnswer}}</td>
-            <td>{{rep.wrongAnswerPercent}}</td>
-            <td>{{rep.totalAnswer}}</td>
+            <td>{{rep.rightAnswers}}</td>
+            <td>{{rep.rightAnswersPercent}}%</td>
+            <td>{{rep.wrongAnswers}}</td>
+            <td>{{rep.wrongAnswersPercent}}%</td>
+            <td>{{rep.totalAnswers}}</td>
           </tr>
         </tbody>
       </table>
@@ -47,7 +45,7 @@ import { createReport } from '@/shared/services/jspdf-service';
   import { Role } from '@/shared/consts/role';
   import { getUserStorage } from '@/shared/services/storage-service';
   import { getAllClassAsync } from '@/restrict/services/class-service';
-  import { getReportAnswerByClassIdAsync } from '@/restrict/services/class-report-service';
+  import { getReportAnswerByClassIdAsync, getReportAllClassAsync} from '@/restrict/services/class-report-service';
   import { handleErrors } from '@/public/handlers/error-handler';
 
 export default {
@@ -68,6 +66,7 @@ export default {
 
       getAllClassAsync().then((res) =>{ 
         let array = res.data.data;
+        this.classes.push({ name: "Todas as Salas", code: "x"});
         array.forEach(element => {
           this.classes.push({ name: element.code, code: element.code});
         });
@@ -78,15 +77,22 @@ export default {
     watch: {
       selectedClasses : function(){
         try {
-            getReportAnswerByClassIdAsync(this.selectedClasses.code).then((res)=>{
-                this.reports = res.data;
-            });
-            
+              if(this.selectedClasses.code ==  'x') {
+                console.log('ta aqui')
+                getReportAllClassAsync().then((res)=>{
+                    this.reports = res.data.data;
+                })
+              }else{
+                getReportAnswerByClassIdAsync(this.selectedClasses.code).then((res)=>{
+                    this.reports = res.data.data;
+                });
+              }
         } catch (error) {
             handleErrors(error, 'Falha ao carregar relatorio de aluno!'); 
         }
       },
-      
+
+
     },
 
     methods: {
@@ -104,10 +110,10 @@ export default {
 </script>
 
 <style scoped>
-  .select-student{
+  .select-class{
     margin-top: 20px;
   }
-  .select-student span, .select-student span label{
+  .select-class span, .select-class span label{
     margin: 15px;
   }
   table {

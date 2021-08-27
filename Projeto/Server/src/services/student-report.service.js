@@ -1,7 +1,7 @@
 const { User, Answer } = require('../database/mysql/models');
 const { bindAll } = require('../utils/helpers/context');
 
-class ReportService {
+class StudentReportService {
 
     query = "SELECT u.name, "+
             "u.classCode, "+
@@ -53,4 +53,4 @@ class ReportService {
 
 }
 
-module.exports = bindAll(ReportService, new ReportService());
+module.exports = bindAll(StudentReportService, new StudentReportService());

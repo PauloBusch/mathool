@@ -3,14 +3,14 @@ const { bindAll } = require('../utils/helpers/context');
 
 
 
-class ReportService {
+class ClasstReportService {
 
     
     query = "SELECT u.classCode, "+
         "a.rightAnswers, "+
-        "( a.rightAnswers / (a.rightAnswers + b.wrongtAnswers)*100) AS rightAnswersPercent, "+
-        "b.wrongtAnswers, ( b.wrongtAnswers / (a.rightAnswers + b.wrongtAnswers)*100) AS wrongAnswersPercent, "+
-        "(a.rightAnswers + b.wrongtAnswers) AS totalAnswer "+
+        "( a.rightAnswers / (a.rightAnswers + b.wrongAnswers)*100) AS rightAnswersPercent, "+
+        "b.wrongAnswers, ( b.wrongAnswers / (a.rightAnswers + b.wrongAnswers)*100) AS wrongAnswersPercent, "+
+        "(a.rightAnswers + b.wrongAnswers) AS totalAnswers "+
     "FROM users AS u INNER JOIN "+
         "(SELECT "+
             "userId, "+
@@ -22,7 +22,7 @@ class ReportService {
         "(SELECT "+
             "userId, "+
             "classCode, "+
-            "COUNT(answers.id) AS wrongtAnswers "+
+            "COUNT(answers.id) AS wrongAnswers "+
         "FROM answers INNER JOIN users ON (users.id = answers.userId) "+
         "WHERE rightAnswer = 0 GROUP BY classCode) AS b ON (b.userId = u.id) "
 
@@ -42,4 +42,4 @@ class ReportService {
 
 }
 
-module.exports = bindAll(ReportService, new ReportService());
+module.exports = bindAll(ClasstReportService, new ClasstReportService());
