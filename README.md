@@ -27,7 +27,7 @@ foram respondidas, acertos e erros)
 - [x] 06 Gerar um relatório especificando o desempenho de um aluno (mesmo relatório
 de performance apresentado ao aluno, todavia o professor poderá selecionar o
 aluno)
-- [ ] 07 Visualizar os detalhes de uma questão respondida por um aluno (mostrar as
+- [x] 07 Visualizar os detalhes de uma questão respondida por um aluno (mostrar as
 alternativas exibidas e a resposta do aluno)
 
 **Global**
