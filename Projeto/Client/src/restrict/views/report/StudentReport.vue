@@ -1,7 +1,7 @@
 <template>
     <div id="container">
       <img class="image" alt="Vue logo" src="/assets/logo/logo-horizontal.png"/>
-      <h2>Relatorio de Desempenho</h2>
+      <h2>Relatorio de Desempenho do Estudante</h2>
       <h4 v-if="(Role.Student == User.role)"><strong>Aluno:</strong> {{User.name}}</h4>
       <Button data-html2canvas-ignore="true" @click="gerarPDF()" type="button" label="Download em PDF" ></Button>
       <div v-if="(Role.Teacher == User.role)"  class="p-field p-col-12 p-md-3 select-student">

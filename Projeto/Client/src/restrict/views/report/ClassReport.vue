@@ -1,7 +1,7 @@
 <template>
     <div id="container">
       <img class="image" alt="Vue logo" src="/assets/logo/logo-horizontal.png"/>
-      <h2>Relatorio de Desempenho</h2>
+      <h2>Relatorio de Desempenho Da Classe</h2>
       <Button data-html2canvas-ignore="true" @click="gerarPDF()" type="button" label="Download em PDF" ></Button>
     
         <span class="select-class">
@@ -40,7 +40,6 @@ import { createReport } from '@/shared/services/jspdf-service';
   import Button from 'primevue/button';
   import Dropdown from 'primevue/dropdown'
 
-  // import { getReportAnswerByMyUserAsync  } from '@/restrict/services/student-report-service';
   import { Role } from '@/shared/consts/role';
   import { getUserStorage } from '@/shared/services/storage-service';
   import { getAllClassAsync } from '@/restrict/services/class-service';

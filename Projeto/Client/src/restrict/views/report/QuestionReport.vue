@@ -24,7 +24,7 @@
         </thead>
         <tbody>
           <tr v-for="rep in reports" v-bind:key="rep.id" :class="rep.answers[0].rightAnswer ? 'correto' : 'incorreto'">
-            <td>{{ calcTime(rep.createdAt, rep.answers[0].createdAt) }}</td>
+            <td>{{ dateFormat(rep.createdAt) }}</td>
             <td>{{rep.expression}}</td>
             <td>{{(rep.answers[0].rightAnswer) ? "Certo" : "Errado" }}</td>
             
@@ -70,7 +70,7 @@
           <p class="center response"><strong>{{modalValues.question}}</strong></p>
           
           <h3>Resposta: </h3>
-          <label>Sua Resposta</label>
+          <label>Resposta Do Aluno</label>
           <Message v-if="modalValues.rightAnswer" severity="success" :closable="false">" <strong>{{modalValues.yourAnswer}} </strong> "</Message>
           <Message v-if="!modalValues.rightAnswer" severity="error" :closable="false">" <strong>{{modalValues.yourAnswer}} </strong> "</Message>
           <br/>
@@ -100,7 +100,7 @@
   import { getAllClassAsync } from '@/restrict/services/class-service';
   import { getAllStudentByClassCodeAsync } from '@/restrict/services/student-service';
   import { handleErrors } from '@/public/handlers/error-handler';
-  import { calcTime } from '@/shared/services/calc-time'
+  import { calcTime, dateFormat } from '@/shared/services/calc-time'
 
 
 export default {
@@ -130,6 +130,7 @@ export default {
         classes,
         students,
         calcTime,
+        dateFormat,
         modalValues,
         display: false
 
@@ -247,10 +248,10 @@ export default {
     border: 1.5px solid rgba(167, 175, 170, 0.384);
   }
   .correto{
-    background-color:rgb(108, 218, 122);;
+    background-color:rgba(108, 218, 123, 0.3);;
   }
   .incorreto{
-    background-color:rgb(223, 101, 101);
+    background-color:rgb(223, 101, 101, 0.3);
   }
   tr {
     display: table-row;
