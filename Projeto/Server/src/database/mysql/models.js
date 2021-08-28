@@ -32,4 +32,7 @@ models.Answer.belongsTo(models.Question, { foreignKey: 'questionId', as: 'answer
 models.User.hasMany(models.Answer, { foreignKey: 'userId', as: 'Users' });
 models.Answer.belongsTo(models.User, { foreignKey: 'userId', as: 'Users' });
 
+models.User.hasMany(models.Question, { foreignKey: 'userId', as: 'users' });
+models.Question.belongsTo(models.User, { foreignKey: 'userId', as: 'users' });
+
 module.exports = models;

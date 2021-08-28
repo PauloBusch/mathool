@@ -31,11 +31,11 @@ class StudentReportService {
     async getReportAnswerByIdAsync(user, res){
         const newQuery = this.query + "WHERE u.id = :uid"
         let [ result] = await Answer.sequelize.query(newQuery, { 
-            
             replacements: { uid: user },
         });
         res.json({data : result})
     }
+    
     async getReportAllAnswerAsync(res){
         let [ result] = await Answer.sequelize.query(this.query);
         res.json({data : result})
@@ -46,7 +46,7 @@ class StudentReportService {
     }
     async getReportAnswerByUserIdAsync(req, res){
         const params = req.params.id;
-        (params == "x") ? 
+        (params == "all") ? 
             this.getReportAllAnswerAsync(res) :
             this.getReportAnswerByIdAsync(params, res)  
     }

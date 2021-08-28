@@ -28,16 +28,15 @@ class ClasstReportService {
 
     async getReportClassByClassCodeAsync(req, res){
         const myClassCode = req.params.classCode;
-        const [results] = await Answer.sequelize.query({
-            query: this.query + 'WHERE u.classCode = "' + myClassCode + '"'
+        const newQuery = this.query + "WHERE u.classCode = :uid"
+        const [results] = await Answer.sequelize.query(newQuery, {
+            replacements: { uid: myClassCode }
         })
         res.json({data : results});
     }
-    async getReportClassAsync(req, res){
-        const [results] = await Answer.sequelize.query({
-            query: this.query
-        })
-        res.json({data : results})
+    async getReportAllClassAsync(req, res){
+        const [results] = await Answer.sequelize.query(this.query);
+        res.json({data : results});
     }
 
 }

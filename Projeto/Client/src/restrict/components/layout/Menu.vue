@@ -10,10 +10,11 @@
         <Sidebar v-model:visible="visibleLeft">
             <ul class="links">
                 <li><router-link to="/mathool/restrict">Início</router-link></li>
+                <li v-if="(teacher == user.role)"><router-link to="/mathool/class-form">Cadastrar Classes</router-link></li>
                 <li><router-link to="/mathool/list-class">Lista de Classes</router-link></li>
                 <li><router-link to="/mathool/student-report">Rel. de Desempenho do Aluno</router-link></li>
-                <li><router-link to="/mathool/class-report">Rel. de Desempenho da Class</router-link></li>
-                <li v-if="(teacher == user.role)"><router-link to="/mathool/class-form">Cadastrar Classes</router-link></li>
+                <li v-if="(teacher == user.role)"><router-link to="/mathool/class-report">Rel. de Desempenho da Class</router-link></li>
+                <li v-if="(teacher == user.role)"><router-link to="/mathool/exercises-answered">Exercicios Respondidos</router-link></li>
                 <li v-if="(student == user.role)"><router-link to="/mathool/exercises">Excecícios</router-link></li>
             </ul>
         </Sidebar>

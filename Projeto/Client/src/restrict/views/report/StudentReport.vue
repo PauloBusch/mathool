@@ -2,9 +2,9 @@
     <div id="container">
       <img class="image" alt="Vue logo" src="/assets/logo/logo-horizontal.png"/>
       <h2>Relatorio de Desempenho</h2>
-      <h4><strong>Aluno:</strong> {{User.name}}</h4>
+      <h4 v-if="(Role.Student == User.role)"><strong>Aluno:</strong> {{User.name}}</h4>
       <Button data-html2canvas-ignore="true" @click="gerarPDF()" type="button" label="Download em PDF" ></Button>
-      <div v-if="(Role.Teacher == User.role)" class="p-field p-col-12 p-md-3 select-student">
+      <div v-if="(Role.Teacher == User.role)"  class="p-field p-col-12 p-md-3 select-student">
           <span>
             <label for="select-student">Classe: </label>
             <Dropdown inputId="select-class" v-model="selectedClasses" :options="classes" optionLabel="name" placeholder="Select" />
@@ -104,7 +104,7 @@ export default {
             getAllStudentByClassCodeAsync(this.selectedClasses.code).then((res)=>{
               let array = res.data.data;
               this.students.splice(0, this.students.length);
-              this.students.push({ name: "Todos Estudantes", code: "x"});
+              this.students.push({ name: "Todos Estudantes", code: "all"});
               array.forEach(element => {
                 this.students.push({ name: element.name, code: element.id});
               });

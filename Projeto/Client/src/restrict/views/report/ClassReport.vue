@@ -2,7 +2,6 @@
     <div id="container">
       <img class="image" alt="Vue logo" src="/assets/logo/logo-horizontal.png"/>
       <h2>Relatorio de Desempenho</h2>
-      <h4><strong>Aluno:</strong> {{User.name}}</h4>
       <Button data-html2canvas-ignore="true" @click="gerarPDF()" type="button" label="Download em PDF" ></Button>
     
         <span class="select-class">
@@ -66,7 +65,7 @@ export default {
 
       getAllClassAsync().then((res) =>{ 
         let array = res.data.data;
-        this.classes.push({ name: "Todas as Salas", code: "x"});
+        this.classes.push({ name: "Todas as Salas", code: "all"});
         array.forEach(element => {
           this.classes.push({ name: element.code, code: element.code});
         });
@@ -77,8 +76,7 @@ export default {
     watch: {
       selectedClasses : function(){
         try {
-              if(this.selectedClasses.code ==  'x') {
-                console.log('ta aqui')
+              if(this.selectedClasses.code ==  'all') {
                 getReportAllClassAsync().then((res)=>{
                     this.reports = res.data.data;
                 })

@@ -4,6 +4,7 @@ import ListClass from './views/class/ListClass.vue';
 import StudentReport from './views/report/StudentReport.vue';
 import ClassReport from './views/report/ClassReport.vue';
 import Pergunta from './views/exercises/Question.vue';
+import QuestionReport from './views/report/QuestionReport.vue';
 import { Role } from '@/shared/consts/role';
 import { guardMiddleware } from '@/middleware/guard-middleware';
 
@@ -42,7 +43,12 @@ const restrictRoutes = [
     path: 'exercises',
     component: Pergunta,
     beforeEnter: guardMiddleware([Role.Student])
-  }
+  },
+  {
+    path: 'exercises-answered',
+    component: QuestionReport,
+    beforeEnter: guardMiddleware([Role.Teacher])
+  },
 ];
 
 export default restrictRoutes;
