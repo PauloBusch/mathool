@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
   DB_MYSQL_USER,
   DB_MYSQL_PASS, 
   {
-    logging: false,
+    logging: console.log,
     host: DB_MYSQL_HOST,
     port: DB_MYSQL_PORT,
     dialect: 'mysql',
@@ -21,5 +21,5 @@ const sequelize = new Sequelize(
     }
   }
 );
-
+sequelize.sync();
 module.exports = sequelize;

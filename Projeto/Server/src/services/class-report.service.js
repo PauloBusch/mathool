@@ -11,14 +11,14 @@ class ClasstReportService {
         "( a.rightAnswers / (a.rightAnswers + b.wrongAnswers)*100) AS rightAnswersPercent, "+
         "b.wrongAnswers, ( b.wrongAnswers / (a.rightAnswers + b.wrongAnswers)*100) AS wrongAnswersPercent, "+
         "(a.rightAnswers + b.wrongAnswers) AS totalAnswers "+
-    "FROM users AS u INNER JOIN "+
+    "FROM users AS u LEFT JOIN "+
         "(SELECT "+
             "userId, "+
             "classCode, "+
             "COUNT(answers.id) AS rightAnswers "+
         "FROM answers INNER JOIN users ON (users.id = answers.userId) "+
         "WHERE rightAnswer = 1 GROUP BY classCode) AS a ON (a.userId = u.id) "+
-    "INNER JOIN "+
+    "LEFT JOIN "+
         "(SELECT "+
             "userId, "+
             "classCode, "+

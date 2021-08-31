@@ -10,7 +10,7 @@ class StudentReportService {
             "b.wrongAnswer, "+"( b.wrongAnswer / (a.rightAnswer + b.wrongAnswer)*100) AS wrongAnswerPercent, "+
             "(a.rightAnswer + b.wrongAnswer) AS totalAnswer "+
         "FROM users AS u "+
-        "INNER JOIN "+
+        "LEFT JOIN "+
             "(SELECT users.name, "+
                 "userId, "+
                 "classCode, "+
@@ -18,7 +18,7 @@ class StudentReportService {
             "FROM answers "+
             "INNER JOIN users ON (users.id = answers.userId) "+
             "WHERE rightAnswer = 1 GROUP BY name) AS a ON (a.userId = u.id) "+
-        "INNER JOIN "+
+        "LEFT JOIN "+
             "(SELECT users.name, "+
                 "userId, "+
                  "classCode, "+
